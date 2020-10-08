@@ -43,7 +43,17 @@
                     <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
                     <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                    <li class="nav-item register"><a href="/login/" class="nav-link">Sign In</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown profile">
+                            <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> {{request.user.first_name|title}}  </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/profile/"> Profile </a></li>
+                                <li><a class="dropdown-item" href="/logout/"> Logout </a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item register"><a href="/login/" class="nav-link">Sign In</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

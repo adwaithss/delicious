@@ -15,10 +15,10 @@
 			{% for x in product %}
 			<div class="col-md-4 d-flex ftco-animate ">
 				<div class="blog-entry align-self-stretch staff padding">
-					<a href="blog-single.html" class="block-20 rounded shadow" style="background-image: url('/media/{{x.image1}}');">
+					<a target="_blank" href="/product/{{x.slug}}/" class="block-20 rounded shadow" style="background-image: url('/media/{{x.image1}}');">
 					</a>
 					<div class="py-2 d-block">
-						<h2 class="heading mt-2"  style="font-size: 1.55rem;"><a href="#">{{x.name}}</a></h2>
+						<h2 class="heading mt-2"  style="font-size: 1.55rem;"><a target="_blank" href="/product/{{x.slug}}/">{{x.name}}</a></h2>
 						<p>{{x.description |linebreaks|slice:60}}</p>
 
 						<h3><span  class="text-muted"><del>₹{{x.price}}</del></span> <span class="heading"><strong> ₹{{x.specialPrice}}</strong></span></h3>
@@ -30,22 +30,39 @@
 			<p> No product available</p>
 			{% endfor %}
 		</div>
-
-<!-- <div class="row mt-5">
-<div class="col text-center">
-<div class="block-27">
-<ul>
-<li><a href="#">&lt;</a></li>
-<li class="active"><span>1</span></li>
-<li><a href="#">2</a></li>
-<li><a href="#">3</a></li>
-<li><a href="#">4</a></li>
-<li><a href="#">5</a></li>
-<li><a href="#">&gt;</a></li>
-</ul>
-</div>
-</div>
-</div> -->
+		
+		<div class="row mt-5">
+			<div class="col text-center">
+				<div class="block-27">
+					<p>Page <b>{{ product.number }}</b> - {{ product.paginator.num_pages }} of <b>{{ product.paginator.count }}</b> products</p>
+					<ul>
+						{% if product.has_previous %}
+                            <li><a href="?page={{ product.previous_page_number }}">&lt; </a></li>
+                        {% else %}
+                            <li class="disabled"><span>&lt; </span></li>
+                        {% endif %}
+						{% if product.number|add:'-5' > 5 %}
+                            <li><a href="?page={{ product.number|add:'-5' }}">&hellip;</a></li>
+                        {% endif %}
+                        {% for i in product.paginator.page_range %}
+                            {% if product.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% elif i > product.number|add:'-5' and i < product.number|add:'5' %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if product.paginator.num_pages > product.number|add:'5' %}
+                            <li><a href="?page={{ product.number|add:'5' }}">&hellip;</a></li>
+                        {% endif %}
+						{% if product.has_next %}
+                            <li><a href="?page={{ product.next_page_number }}">&gt;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&gt;</span></li>
+                        {% endif %}
+					</ul>
+				</div>
+			</div>
+		</div>
 </div>
 </section>
 
