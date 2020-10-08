@@ -1,0 +1,51 @@
+{% extends 'common/main.html'%}
+{% load static %}
+{% block title %}{{product.name}} | Delicious Rolls{% endblock %}
+{% block content %}
+
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 ftco-animate">
+                <div  class="home-slider owl-carousel img ">
+                    <div class="slider-item">
+                        <img src="/media/{{product.image1}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
+                    </div>
+                    {% if product.image2 %}
+                        <div class="slider-item">
+                           <img src="/media/{{product.image2}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
+                        </div>
+                    {% endif %}
+                    {% if product.image2 %}
+                    <div class="slider-item">
+                       <img src="/media/{{product.image3}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
+                    </div>
+                    {% endif %}
+                    {% if product.image2 %}
+                    <div class="slider-item">
+                       <img src="/media/{{product.image4}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 ftco-animate">
+                <span class="subheading">Delicious</span>
+                <h1 class="mb-4"><span style="color: #fac564;font-size: 3rem;"><strong>{{product.name}}</strong></span></h1>
+                <p class="mb-4 mb-md-5">{{product.description}}</p>
+                <h2 class="mb-4 mb-md-5"><span style="font-size: 1rem;"><del>₹{{product.price}}</del></span>  <span style="color: #fac564;font-size: 3rem;"><strong>₹{{product.specialPrice}}</strong></span></h2>
+                <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Add to Cart</a></p>
+                <i class="icon-heart" aria-hidden="true" style="font-size: 3rem"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .owl-carousel.home-slider{height: 520px;}
+</style>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+    $(".home").removeClass('active');
+    $(".dish").addClass('active');
+</script>
+{% endblock %}

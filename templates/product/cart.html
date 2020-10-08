@@ -1,0 +1,200 @@
+	{% extends 'common/main.html'%}
+	{% load static %}
+	{% block content %}
+
+
+	<!--Section: Block Content-->
+	<section class="ftco-section">
+		<div class="container">
+			<div class="col-md-7 heading-section ftco-animate text-center">
+				<h2 class="mb-4">Your Cart</h2>
+				<p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+			</div>
+
+
+			<!--Grid row-->
+			<div class="row">
+
+				<!--Grid column-->
+				<div class="col-lg-8 ftco-animate">
+
+					<!-- Card -->
+					<div class="mb-3">
+						<div class="pt-4">
+
+							<h5 class="mb-4">Cart (<span>2</span> items)</h5>
+
+							<div class="row mb-4 staff container-fluid padding">
+								<div class="col-md-5 col-lg-3 col-xl-3">
+
+									<img class="img-fluid border-dark rounded shadow"
+									src="{% static 'images/burger-3.jpg' %}" alt="Sample">
+
+
+								</div>
+								<div class="col-md-7 col-lg-9 col-xl-9">
+									<div>
+										<div class="d-flex justify-content-between">
+											<div>
+												<h5>Blue denim shirt</h5>
+												<p class="mb-3 text-muted text-uppercase small">Shirt - blue</p>
+												<p class="mb-2 text-muted text-uppercase small">Color: blue</p>
+												<p class="mb-3 text-muted text-uppercase small">Size: M</p>
+											</div>
+											<div>
+												<input class="form-control" min="0" name="quantity" value="1" type="number" style="text-align: center;margin-top: 2rem;">  
+												<small id="passwordHelpBlock" class="form-text text-muted text-center">
+													(Quantity)
+												</small>
+											</div>
+										</div>
+										<div class="d-flex justify-content-between align-items-center">
+											<div>
+												<a href="#!" type="button" class="card-link-secondary small text-uppercase mr-3"><i
+													class="icon-trash"></i> Remove item </a>
+													<a href="#!" type="button" class="card-link-secondary small text-uppercase"><i
+														class="icon-heart"></i> Move to wish list </a>
+													</div>
+													<p class="mb-0"><span><strong id="summary">$17.99</strong></span></p class="mb-0">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row mb-4 staff container-fluid padding">
+											<div class="col-md-5 col-lg-3 col-xl-3">
+
+												<img class="img-fluid border-dark rounded shadow padding"
+												src="{% static 'images/burger-1.jpg' %}" alt="Sample">
+
+
+											</div>
+											<div class="col-md-7 col-lg-9 col-xl-9">
+												<div>
+													<div class="d-flex justify-content-between">
+														<div>
+															<h5>Blue denim shirt</h5>
+															<p class="mb-3 text-muted text-uppercase small">Shirt - blue</p>
+															<p class="mb-2 text-muted text-uppercase small">Color: blue</p>
+															<p class="mb-3 text-muted text-uppercase small">Size: M</p>
+														</div>
+														<div>
+
+
+															<input class="form-control" min="0" name="quantity" value="1" type="number" style="text-align: center;margin-top: 2rem;" >
+
+
+															<small id="passwordHelpBlock" class="form-text text-muted text-center">
+																(Quantity)
+															</small>
+														</div>
+													</div>
+													<div class="d-flex justify-content-between align-items-center">
+														<div>
+															<a href="#" type="button" class="card-link-secondary small text-uppercase mr-3"><i
+																class="icon-trash"></i> Remove item </a>
+																<a href="#" type="button" class="card-link-secondary small text-uppercase"><i
+																	class="icon-heart"></i> Move to wish list </a>
+																</div>
+																<p class="mb-0"><span><strong id="summary">$17.99</strong></span></p class="mb-0">
+																</div>
+															</div>
+														</div>
+													</div>
+													<hr class="mb-4">
+
+													<p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Do not delay the purchase, adding
+													items to your cart does not mean booking them.</p>
+
+												</div>
+											</div>
+											<!-- Card -->
+
+											<!-- Card -->
+											<div class="mb-3">
+												<div class="pt-4">
+
+													<h5 class="mb-4">Expected shipping delivery</h5>
+
+													<p class="mb-0"> Thu., 12.03. - Mon., 16.03.</p>
+												</div>
+											</div>
+											<!-- Card -->
+
+
+
+										</div>
+										<!--Grid column-->
+
+										<!--Grid column-->
+										<div class="col-lg-4 ftco-animate">
+
+											<!-- Card -->
+											<div class="mb-3">
+												<div class="pt-4">
+
+													<a data-toggle="collapse" href="#amtdetls"><h5 class="mb-3">AMOUNT DETAILS <span><i class="icon-keyboard_arrow_down"></i></span></h5></a>
+
+													<div class="collapse" id="amtdetls">
+
+														<ul class="list-group list-group-flush">
+															<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 form-control">
+																Temporary amount
+																<span>$25.98</span>
+															</li>
+															<li class="list-group-item d-flex justify-content-between align-items-center px-0 form-control">
+																Shipping
+																<span>Gratis</span>
+															</li>
+															<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3 form-control">
+																<div>
+																	<strong>The total amount of</strong>
+																	<strong>
+																		<p class="mb-0">(including VAT)</p>
+																	</strong>
+																</div>
+																<span><strong>$53.98</strong></span>
+															</li>
+														</ul>
+													</div>
+
+													<button type="button" class="btn btn-primary btn-block">go to checkout</button>
+
+												</div>
+											</div>
+											<!-- Card -->
+
+											<!-- Card -->
+											<div class="mb-3">
+												<div class="pt-4">
+
+													<a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#collapseExample"
+													aria-expanded="false" aria-controls="collapseExample">
+													Add a discount code (optional)
+													<span><i class="icon-keyboard_arrow_down"></i></span>
+												</a>
+
+												<div class="collapse" id="collapseExample">
+													<div class="mt-3">
+														<div class="md-form md-outline mb-0">
+															<input type="text" id="discount-code" class="form-control font-weight-light"
+															placeholder="Enter discount code">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Card -->
+
+									</div>
+									<!--Grid column-->
+
+								</div>
+								<!-- Grid row -->
+
+							</div>
+
+						</section>
+						<!--Section: Block Content-->
+
+
+						{% endblock %}

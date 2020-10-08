@@ -1,0 +1,58 @@
+{% extends 'common/main.html'%}
+{% load static %}
+{% block title %}Our Dishes | Delicious Rolls{% endblock %}
+{% block content %}
+
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center mb-5 pb-3">
+			<div class="col-md-7 heading-section ftco-animate text-center">
+				<h2 class="mb-4">Our Dishes</h2>
+				<p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+			</div>
+		</div>
+		<div class="row d-flex">
+			{% for x in product %}
+			<div class="col-md-4 d-flex ftco-animate ">
+				<div class="blog-entry align-self-stretch staff padding">
+					<a href="blog-single.html" class="block-20 rounded shadow" style="background-image: url('/media/{{x.image1}}');">
+					</a>
+					<div class="py-2 d-block">
+						<h2 class="heading mt-2"  style="font-size: 1.55rem;"><a href="#">{{x.name}}</a></h2>
+						<p>{{x.description |linebreaks|slice:60}}</p>
+
+						<h3><span  class="text-muted"><del>₹{{x.price}}</del></span> <span class="heading"><strong> ₹{{x.specialPrice}}</strong></span></h3>
+						<p><a href="#" class="btn btn-primary">Order Now</a> <a href="#" class="btn btn-white btn-outline-white">Add to Cart</a></p>
+					</div>
+				</div>
+			</div>
+			{% empty %}
+			<p> No product available</p>
+			{% endfor %}
+		</div>
+
+<!-- <div class="row mt-5">
+<div class="col text-center">
+<div class="block-27">
+<ul>
+<li><a href="#">&lt;</a></li>
+<li class="active"><span>1</span></li>
+<li><a href="#">2</a></li>
+<li><a href="#">3</a></li>
+<li><a href="#">4</a></li>
+<li><a href="#">5</a></li>
+<li><a href="#">&gt;</a></li>
+</ul>
+</div>
+</div>
+</div> -->
+</div>
+</section>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+	$(".home").removeClass('active');
+	$(".dish").addClass('active');
+</script>
+
+{% endblock %}

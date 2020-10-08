@@ -1,0 +1,51 @@
+
+{% extends 'common/main.html'%}
+{% load static %}
+{% block title %}LogIn | Delicious Rolls{% endblock %}
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6 col-sm-12 text-center ftco-animate">
+			<img src="{% static 'images/logo.svg' %}" class="mb-3 mt-5 bread" style="height: 150px;">
+			<h1 class="mb-3 ">Sign In</h1>
+			<p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Sign In</span></p>
+			<form action="" class="contact-form" method="POST">
+				{% csrf_token %}
+				<div class="form-group">
+					<div class="form-group">
+						<input type="email" class="form-control" placeholder="Your Email" name="email" required="" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<input type="password" class="form-control  password" placeholder="Password" name="password" required="" autocomplete="off" autocomplete="off">
+				</div>
+				<br/>
+				<div class="form-group">
+					<input type="submit" value="Sign In" class="btn btn-primary py-3 px-5 submit_button">
+				</div><br/>
+				<p>Not a Member? <a href="/register"><span  style="color: #fac564;"><strong>Sign Up</strong></span></a></p>
+			</form>
+		</div>
+	</div>
+</div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+	$(".submit_button").click(function(){
+		var password = $(".password").val();
+		cpassword = $(".cpassword").val();
+		if (password != cpassword) {
+			alert('Password and Confirm password are not same.');
+			$(".password").val('');
+			$(".cpassword").val('');
+		}
+	});
+</script>
+<script>
+	$(".home").removeClass('active');
+	$(".register").addClass('active');
+</script>
+{% endblock %}
+</form>

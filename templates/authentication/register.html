@@ -1,0 +1,114 @@
+
+{% extends 'common/main.html'%}
+{% load static %}
+{% block title %}Sign Up | Delicious Rolls{% endblock %}
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6 col-sm-12 text-center ftco-animate">
+			<img src="{% static 'images/logo.svg' %}" class="mb-3 mt-5 bread" style="height: 150px;">
+			<h1 class="mb-3 ">Sign Up</h1>
+			<p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Sign Up</span></p>
+			<form action="" class="contact-form" method="POST">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="First Name" name="firstname" required="" autocomplete="off">
+						</div>
+					</div>
+					<div class="col-md-6">
+					    <div class="form-group">
+							<input type="text" class="form-control" placeholder="Last Name" name="lastname" autocomplete="off">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-group">
+						<input type="email" class="form-control" placeholder="Your Email" name="email" required="" autocomplete="off">
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Mobile" name="mobile" autocomplete="off">
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="password" class="form-control password" placeholder="Password" name="password" required="" autocomplete="off" autocomplete="off">
+						</div>
+					</div>
+					<div class="col-md-6">
+					    <div class="form-group">
+							<input type="password" class="form-control cpassword" placeholder="Confirm Password" name="cpassword" required="" autocomplete="off">
+						</div>
+					</div>
+				</div>
+				<div class="form-group" >
+					<textarea name="address" id="" cols="30" rows="7" class="form-control" placeholder="Address"></textarea>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="District" name="district">
+						</div>
+					</div>
+					<div class="col-md-6">
+					    <div class="form-group">
+							<input type="text" class="form-control" placeholder="State" name="state">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Country" name="country" value="India" readonly="">
+						</div>
+					</div>
+					<div class="col-md-6">
+					    <div class="form-group">
+							<input type="text" class="form-control" placeholder="Pin Code" name="pin" required="">
+						</div>
+					</div>
+				</div><br/>
+				<div class="form-group">
+					<input type="submit" value="Sign Up" class="btn btn-primary py-3 px-5 submit_button">
+				</div><br/>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+	$(".submit_button").click(function(){
+		var password = $(".password").val();
+			cpassword = $(".cpassword").val();
+		if (password != cpassword) {
+			alert('Password and Confirm password are not same.');
+			$(".password").val('');
+			$(".cpassword").val('');
+		}
+		/*var mobile = $(".mobile");
+		var filter = /^((\+[1-9]{1,4}[\-]*)|(\([0-9]{2,3}\)[\-]*)|([0-9]{2,4})[\-]*)*?[0-9]{3,4}?[\-]*[0-9]{3,4}?$/;
+		if(filter.test(mobile)){
+			if (mobile.length==10) {
+				var validate = true;
+			}else{
+				alert('Please put 10 didgit mobile number');
+			}
+		}
+		else{
+			alert('Not a valid Number');
+			$(".mobile").val('');
+		}*/
+	});
+</script>
+<script>
+    $(".home").removeClass('active');
+    $(".register").addClass('active');
+</script>
+{% endblock %}
+
+</form>
