@@ -9,39 +9,91 @@
             <div class="col-md-6 ftco-animate">
                 <div  class="home-slider owl-carousel img ">
                     <div class="slider-item">
+                        <a href=""><i class="icon-heart" aria-hidden="true"></i></a>
                         <img src="/media/{{product.image1}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
                     </div>
                     {% if product.image2 %}
-                        <div class="slider-item">
-                           <img src="/media/{{product.image2}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
-                        </div>
-                    {% endif %}
-                    {% if product.image2 %}
                     <div class="slider-item">
-                       <img src="/media/{{product.image3}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
+                        <a href=""><i class="icon-heart" aria-hidden="true"></i></a>
+                        <img src="/media/{{product.image2}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
                     </div>
                     {% endif %}
                     {% if product.image2 %}
                     <div class="slider-item">
-                       <img src="/media/{{product.image4}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
+                        <a href=""><i class="icon-heart" aria-hidden="true"></i></a>
+                        <img src="/media/{{product.image3}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
+                    </div>
+                    {% endif %}
+                    {% if product.image2 %}
+                    <div class="slider-item">
+                        <a href=""><i class="icon-heart" aria-hidden="true"></i></a>
+                        <img src="/media/{{product.image4}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
                     </div>
                     {% endif %}
                 </div>
             </div>
             <div class="col-md-6 col-sm-12 ftco-animate">
                 <span class="subheading">Delicious</span>
-                <h1 class="mb-4"><span style="color: #fac564;font-size: 3rem;"><strong>{{product.name}}</strong></span></h1>
+                <h1 class="mb-4"><span style="color: #fac564;font-size: 2.5rem;"><strong>{{product.name}}</strong></span></h1>
                 <p class="mb-4 mb-md-5">{{product.description}}</p>
-                <h2 class="mb-4 mb-md-5"><span style="font-size: 1rem;"><del>₹{{product.price}}</del></span>  <span style="color: #fac564;font-size: 3rem;"><strong>₹{{product.specialPrice}}</strong></span></h2>
+                <h2 class="mb-4 mb-md-5"><span style="font-size: 1rem;"><del>₹{{product.price}}</del></span>  <span style="color: #fac564;font-size: 2.2rem;"><strong>₹{{product.specialPrice}}</strong></span></h2>
+                <p class="mb-4 mb-md-5">{{product.category}} | {{product.subCategory}}</p>
+                <p class="mb-4 mb-md-5">{{product.quantity}} left</p>
+
                 <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Add to Cart</a></p>
-                <i class="icon-heart" aria-hidden="true" style="font-size: 3rem"></i>
+
             </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                <h2 class="mb-4">You May Also Like</h2>
+                <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+            </div>
+        </div>
+        <div class="row">
+            {% for x in related_product %}
+            <div class="col-md-3 text-center ftco-animate">
+                <div class="menu-wrap">
+                    <a target="_blank" href="/product/{{x.slug}}" class="menu-img img mb-4" style="background-image: url(/media/{{x.image1}});"></a>
+                    <div class="text">
+                        <h3><a target="_blank" href="/product/{{x.slug}}">{{x.name}}</a></h3>
+                        <p>{{x.description}}</p>
+                        <p class="price"><span>₹{{x.specialPrice}}</span></p>
+                        <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
 
 <style>
     .owl-carousel.home-slider{height: 520px;}
+    i{
+        font-size: 2.5rem;
+        position: absolute;
+        padding-top: 20px;
+        padding-left: 20px;
+        color: white;  
+        text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+    }
+    i:hover{
+        color: #D3D3D3;
+        background-color: #666666;
+        background-color: #666666;
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
+    
+  
+    }
 </style>
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script>

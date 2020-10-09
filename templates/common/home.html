@@ -13,7 +13,7 @@
 							<span class="subheading">Delicious</span>
 							<h1 class="mb-4">{{x.name}}</h1>
 							<p class="mb-4 mb-md-5">{{x.description}}</p>
-							<p><a href="{{x.url}}" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View {{x.name}}</a></p>
+							<p><a target="_blank" href="{{x.url}}" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View {{x.name}}</a></p>
 						</div>
 						<div class="col-md-6 ftco-animate">
 							<img src="media/{{x.image}}" class="img-fluid" alt="">
@@ -160,7 +160,7 @@
 							<a target="_blank" href="/product/{{product.slug}}/" class="img order-lg-last" style="background-image: url(media/{{product.image1}});"></a>
 							<div class="text p-4">
 								<h3>{{product.name}}</h3>
-								<p>{{product.description|linebreaks|slice:60}}</p>
+								<p>{{product.description|linebreaks|slice:80}}</p>
 								<p class="price"><span>₹ {% if product.specialPrice %} {{product.specialPrice}} {% else %} {{product.price}} {% endif %}</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">Order</a></p>
 							</div>
 						</div>

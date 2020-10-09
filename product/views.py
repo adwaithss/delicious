@@ -9,7 +9,7 @@ class ProductlistPage(ListView):
     template_name = "product/productlist.html"
 
     def get(self, request, *args, **kwargs):
-        product = Product.objects.all().order_by('id')
+        product = Product.objects.all().order_by('-id')
 
         paginator = Paginator(product, 6)
         page = request.GET.get('page')
@@ -30,7 +30,8 @@ class ProductPage(TemplateView):
 
     def get(self, request, slug, *args, **kwargs):
         product = Product.objects.get(slug=slug)
-        context = {'product':product}
+        related_product = Product.objects.filter(category=product.category).exclude(id=product.id).all().order_by('-id')
+        context = {'product':product, 'related_product':related_product}
         return render(request, self.template_name, context)
 
 

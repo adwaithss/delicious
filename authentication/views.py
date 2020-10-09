@@ -12,8 +12,8 @@ class HomePage(TemplateView):
     template_name = "common/home.html"
 
     def get(self, request, *args, **kwargs):
-        product1 = Product.objects.all()[0:3]
-        product2 = Product.objects.all()[3:6]
+        product1 = Product.objects.all().order_by('-id')[0:3]
+        product2 = Product.objects.all().order_by('-id')[3:6]
         banner = Banner.objects.all()
         
         context = {'product1': product1, 'product2':product2, 'banner':banner}
@@ -80,3 +80,11 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect('/')
+
+
+class ProfileView(TemplateView):
+	template_name = "authentication/profile.html"
+
+	def get(self, request, *args, **kwargs):
+		context = {}
+		return render(request, self.template_name, context)

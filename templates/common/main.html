@@ -5,14 +5,14 @@
     <title>{% block title %}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-    
+
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
@@ -23,7 +23,7 @@
 
     <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
-    
+
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -44,15 +44,15 @@
                     <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
                     {% if user.is_authenticated %}
-                        <li class="nav-item dropdown profile">
-                            <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> {{request.user.first_name|title}}  </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/profile/"> Profile </a></li>
-                                <li><a class="dropdown-item" href="/logout/"> Logout </a></li>
-                            </ul>
-                        </li>
+                    <li class="nav-item dropdown profile">
+                        <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> {{request.user.first_name|title}}  </a>
+                        <ul class="dropdown-menu profile_drop">
+                            <li><a class="dropdown-item" href="/profile/"> Profile </a></li>
+                            <li><a class="dropdown-item" href="/logout/"> Logout </a></li>
+                        </ul>
+                    </li>
                     {% else %}
-                        <li class="nav-item register"><a href="/login/" class="nav-link">Sign In</a></li>
+                    <li class="nav-item register"><a href="/login/" class="nav-link">Sign In</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -77,7 +77,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
                     <div class="ftco-footer-widget mb-4 ml-md-4">
                         <h2 class="ftco-heading-2">Services</h2>
@@ -114,6 +114,16 @@
     </footer>
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+    <style type="text/css">
+        .profile_drop{
+            background-color: #121618 !important;
+            margin-top: -15px;
+        }
+
+        .profile_drop li a { color: #BFBFBF !important; }
+        .profile_drop li a:hover { color: #FAC564 !important;background-color: #121618 !important; }
+    </style>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>

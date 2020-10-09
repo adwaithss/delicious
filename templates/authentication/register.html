@@ -31,7 +31,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Mobile" name="mobile" autocomplete="off">
+					<input type="text" class="form-control" placeholder="Mobile" name="mobile" autocomplete="off" required="">
 				</div>
 				<div class="row">
 					<div class="col-md-6">
@@ -83,6 +83,29 @@
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
 	$(".submit_button").click(function(){
+		var mobile = $('input[name="mobile"]').val();
+		intRegex = /[0-9-()+]+$/;
+		if(intRegex.test(mobile))
+		{
+			var tst=true;
+		}else{
+			var tst=false;
+		}
+		if(mobile.length==10)
+			{
+				var len=true;
+				
+			}else{
+				var len=false;
+			}
+		if(tst==false){
+			alert('Invalid Number');
+			$('input[name="mobile"]').val('');
+		}
+		if(tst==true&&len==false){
+			alert('Mobile number should Have 10 Numbers');
+			$('input[name="mobile"]').val('');
+		}
 		var password = $(".password").val();
 			cpassword = $(".cpassword").val();
 		if (password != cpassword) {
@@ -90,19 +113,12 @@
 			$(".password").val('');
 			$(".cpassword").val('');
 		}
-		/*var mobile = $(".mobile");
-		var filter = /^((\+[1-9]{1,4}[\-]*)|(\([0-9]{2,3}\)[\-]*)|([0-9]{2,4})[\-]*)*?[0-9]{3,4}?[\-]*[0-9]{3,4}?$/;
-		if(filter.test(mobile)){
-			if (mobile.length==10) {
-				var validate = true;
-			}else{
-				alert('Please put 10 didgit mobile number');
-			}
+		var pin = $('input[name="pin"]').val();
+		intRegex = /[0-9-()+]+$/;
+		if (!(intRegex.test(pin)) || pin.length!=6) {
+			alert('Invalid Pin code');
+			$('input[name="pin"]').val('');
 		}
-		else{
-			alert('Not a valid Number');
-			$(".mobile").val('');
-		}*/
 	});
 </script>
 <script>
