@@ -49,7 +49,7 @@ class RegisterPage(TemplateView):
         profile.pin = request.POST['pin']
         profile.save()
         
-        return HttpResponse(request.POST['email'])
+        return redirect('/thankyou')
 
 
 class LoginPage(TemplateView):
@@ -84,6 +84,14 @@ class LogoutView(View):
 
 class ProfileView(TemplateView):
 	template_name = "authentication/profile.html"
+
+	def get(self, request, *args, **kwargs):
+		context = {}
+		return render(request, self.template_name, context)
+
+
+class SuccessView(TemplateView):
+	template_name = "authentication/thankyou.html"
 
 	def get(self, request, *args, **kwargs):
 		context = {}

@@ -1,0 +1,122 @@
+
+{% extends 'common/main.html'%}
+{% load static %}
+{% block title %}LogIn | Delicious Rolls{% endblock %}
+{% block content %}
+<section class="ftco-section">
+	<div class="container-fluid padding">
+		<div class="ftco-animate ">
+				<div class="blog-entry align-self-stretch padding">
+					<img class="block-20" src="{% static '/images/logo.svg' %}">
+					</a>
+<div style="text-align:center;">
+<h1>Welcome! <i class="icon-heart" aria-hidden="true"></i></h1>
+<p>You have successfully became a member</p>
+<span id="timer"></span></div>
+</div>
+</div>
+</div>
+</section>
+
+
+<section class="ftco-intro">
+		<div class="container-wrap">
+			<div class="wrap d-md-flex">
+				<div class="info">
+					<div class="row no-gutters">
+						<div class="col-md-4 d-flex ftco-animate">
+							<div class="icon"><span class="icon-phone"></span></div>
+							<div class="text">
+								<h3>+91 8111 819 045</h3>
+								<p>Kannur University Campus</p>
+							</div>
+						</div>
+						<div class="col-md-4 d-flex ftco-animate">
+							<div class="icon"><span class="icon-my_location"></span></div>
+							<div class="text">
+								<h3>Kannur PO 670 567</h3>
+								<p>Mangattuparamba</p>
+							</div>
+						</div>
+						<div class="col-md-4 d-flex ftco-animate">
+							<div class="icon"><span class="icon-clock-o"></span></div>
+							<div class="text">
+								<h3>Open Monday-Friday</h3>
+								<p>8:00am - 9:00pm</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="social d-md-flex pl-md-5 p-4 align-items-center">
+					<ul class="social-icon">
+						<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+						<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+						<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="ftco-counter ftco-bg-dark img" id="section-counter" style="background-image: url({% static 'images/bg_2.jpg' %});" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<div class="row">
+						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+							<div class="block-18 text-center">
+								<div class="text">
+									<div class="icon"><span class="flaticon-pizza-1"></span></div>
+									<strong class="number" data-number="100">0</strong>
+									<span>Pizza Branches</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+							<div class="block-18 text-center">
+								<div class="text">
+									<div class="icon"><span class="flaticon-medal"></span></div>
+									<strong class="number" data-number="85">0</strong>
+									<span>Number of Awards</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+							<div class="block-18 text-center">
+								<div class="text">
+									<div class="icon"><span class="flaticon-laugh"></span></div>
+									<strong class="number" data-number="10567">0</strong>
+									<span>Happy Customer</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+							<div class="block-18 text-center">
+								<div class="text">
+									<div class="icon"><span class="flaticon-chef"></span></div>
+									<strong class="number" data-number="900">0</strong>
+									<span>Staff</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+<script type="text/javascript">
+var count = 5;
+var redirect = "/login";
+function countDown(){
+    var timer = document.getElementById("timer");
+    if(count > 0){
+        count--;
+        timer.innerHTML = "This page will redirect in "+count+" seconds.";
+        setTimeout("countDown()", 1000);
+}else{
+        window.location.href = redirect;
+    }
+}
+countDown();
+</script>
+{% endblock %}

@@ -8,7 +8,6 @@ section {
 }
 
 body {
-  font-family: Open Sans, sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -93,7 +92,6 @@ a:not([href]):not([tabindex]):focus {
 }
 
 code {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   font-size: 1em;
 }
 
@@ -127,7 +125,6 @@ button:focus {
 input,
 button,
 textarea {
-  font-family: inherit;
   font-size: inherit;
   line-height: inherit;
   margin: 0;
@@ -225,7 +222,6 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: inherit;
   font-weight: 600;
   line-height: 1.5;
   margin-bottom: .5rem;
@@ -778,7 +774,7 @@ textarea.form-control {
   word-wrap: break-word;
   border: 1px solid rgba(0, 0, 0, .05);
   border-radius: .375rem;
-  background-color: #121618;
+  background-color: #151a1c;
   background-clip: border-box;
 }
 
@@ -833,7 +829,7 @@ textarea.form-control {
 }
 
 .bg-secondary {
-  background-color: #121618 !important;
+  background-color: #151a1c !important;
 }
 
 a.bg-secondary:hover,
@@ -928,7 +924,7 @@ button.bg-white:focus {
 
 .shadow,
 .card-profile-image img {
-  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .55) !important;
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .35) !important;
 }
 
 .m-0 {
