@@ -10,6 +10,7 @@ class UserProfile(models.Model):
 	state = models.CharField(max_length=40, null=True)
 	country = models.CharField(max_length=40, null=True)
 	pin = models.CharField(max_length=6, null=True)
+	avatar = models.ImageField(upload_to='user_avatar', null=True)
 	createdDate = models.DateTimeField(auto_now_add=True)
 	updatedDate = models.DateTimeField(auto_now=True)
 

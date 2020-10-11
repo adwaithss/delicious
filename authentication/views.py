@@ -24,21 +24,25 @@ class RegisterPage(TemplateView):
     template_name = "authentication/register.html"
 
     def get(self, request, *args, **kwargs):
-        form = UserCreationForm
-        
-        context = {'form': form}
-        return render(request, self.template_name, context)
+        if request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
+        if not User.objects.filter(email=request.POST['email']).count() == 0:
+            context = {"message" : "Email already taken"}
+            return render(request, self.template_name, context)
+        elif not UserProfile.objects.filter(mobile=request.POST['mobile']).count() == 0:
+            context = {"message" : "Mobile Number already taken"}
+            return render(request, self.template_name, context)
         user = User()
         user.username = request.POST['email']
         user.email = request.POST['email']
         user.first_name = request.POST['firstname']
         user.last_name = request.POST['lastname']
-        # user.password = request.POST['password']
+        user.set_password(request.POST['password'])
         user.save()
         
-        user.set_password(request.POST['password'])
         profile = UserProfile()
         profile.user = user
         profile.mobile = request.POST['mobile']
@@ -47,6 +51,7 @@ class RegisterPage(TemplateView):
         profile.state = request.POST['state']
         profile.country = request.POST['country']
         profile.pin = request.POST['pin']
+        profile.avatar = 'user_avatar/avatar.png'
         profile.save()
         
         return redirect('/thankyou')
@@ -56,6 +61,8 @@ class LoginPage(TemplateView):
     template_name = "authentication/login.html"
 
     def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect('/')
         context = {}
         return render(request, self.template_name, context)
 
@@ -90,9 +97,44 @@ class ProfileView(TemplateView):
 		return render(request, self.template_name, context)
 
 
+class EditProfileView(TemplateView):
+    template_name = "authentication/editprofile.html"
+    def get(self, request, *args, **kwargs):
+       context = {}
+       return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(id=request.user.id)
+        user.first_name = request.POST['firstname']
+        user.last_name = request.POST['lastname']
+        user.save()
+
+        profile = UserProfile.objects.get(user=user)
+        profile.mobile = request.POST['mobile']
+        profile.address = request.POST['address']
+        profile.district = request.POST['district']
+        profile.state = request.POST['state']
+        profile.pin = request.POST['pin']
+        profile.save()
+
+        return redirect('/profile')
+
+
 class SuccessView(TemplateView):
 	template_name = "authentication/thankyou.html"
 
 	def get(self, request, *args, **kwargs):
 		context = {}
 		return render(request, self.template_name, context)
+
+
+class ContactView(TemplateView):
+	template_name = "common/contact.html"
+
+	def get(self, request, *args, **kwargs):
+		context = {}
+		return render(request, self.template_name, context)
+
+
+
+

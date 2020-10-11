@@ -40,13 +40,11 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item home active"><a href="/" class="nav-link">Home</a></li>
                     <li class="nav-item dish"><a href="/dishes/" class="nav-link">Dishes</a></li>
-                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
                     <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown profile">
-                        <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> <img alt="Image placeholder" src="{% static 'images/person_1.jpg' %}" class="avatar avatar-sm rounded-circle"> {{request.user.first_name|title}} </a>
+                        <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> <img src="/media/{{request.user.userprofile.avatar}}" class="avatar avatar-sm rounded-circle"> {{request.user.first_name|title}}</a>
                         <ul class="dropdown-menu profile_drop">
                             <li><a class="dropdown-item" href="/profile/"> Profile </a></li>
                             <li><a class="dropdown-item" href="/logout/"> Logout </a></li>

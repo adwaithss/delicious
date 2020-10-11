@@ -11,6 +11,11 @@
 			<img src="{% static 'images/logo.svg' %}" class="mb-3 mt-5 bread" style="height: 150px;">
 			<h1 class="mb-3 ">Sign Up</h1>
 			<p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Sign Up</span></p>
+			{% if message %}
+				<div class="alert alert-danger" role="alert">
+					{{message}}
+				</div>
+			{% endif %}
 			<form action="" class="contact-form" method="POST">
 				{% csrf_token %}
 				<div class="row">
@@ -31,7 +36,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Mobile" name="mobile" autocomplete="off" required="">
+					<input type="text" class="form-control" placeholder="Mobile" name="mobile" autocomplete="off" required="" maxlength="10" minlength="10">
 				</div>
 				<div class="row">
 					<div class="col-md-6">
@@ -68,7 +73,7 @@
 					</div>
 					<div class="col-md-6">
 					    <div class="form-group">
-							<input type="text" class="form-control" placeholder="Pin Code" name="pin" required="">
+							<input type="text" class="form-control" placeholder="Pin Code" name="pin" required="" maxlength="6" minlength="6">
 						</div>
 					</div>
 				</div><br/>
@@ -124,6 +129,7 @@
 <script>
     $(".home").removeClass('active');
     $(".register").addClass('active');
+    $(".profile").addClass('active');
 </script>
 {% endblock %}
 
