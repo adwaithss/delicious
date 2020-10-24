@@ -34,7 +34,7 @@ class CreateOrder(TemplateView):
 
 		send_mail(
 		    'Subject here',
-		    'Hii'user.first_name 'order placed' 'Total ₹' order.total,
+		    'Hii' + user.first_name + 'order placed' 'Total ₹' + order.total,
 		    'testbyadwaith@gmail.com',
 		    [order.user.user.email],
 		    fail_silently=False,

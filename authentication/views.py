@@ -5,6 +5,8 @@ from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 import os
+import base64
+from django.template import RequestContext, loader
 from django.conf import settings
 from .models import *
 from product.models import *
@@ -46,6 +48,7 @@ class RegisterPage(TemplateView):
         user.first_name = request.POST['firstname']
         user.last_name = request.POST['lastname']
         user.set_password(request.POST['password'])
+        user.is_active = False
         user.save()
         
         profile = UserProfile()
@@ -58,15 +61,30 @@ class RegisterPage(TemplateView):
         profile.pin = request.POST['pin']
         profile.avatar = 'user_avatar/avatar.png'
         profile.save()
-        send_mail(
-            'Ragistration',
-            'Thanks for registering <3 DeliciousRolls.',
-            'testbyadwaith@gmail.com',
-            [user.email],
-            fail_silently=False,
-        )
         
-        return redirect('/thankyou')
+        token = base64.b64encode(bytes(user.email, 'utf-8')).decode("utf-8") 
+        decode = base64.b64decode(token).decode()
+
+        activation_link = "http://127.0.0.1:8000/verify-email/" + token + "/"
+        user = User.objects.get(id=user.id)
+        subject, from_email, to = 'Verify your email', 'Admin <testbyadwaith@gmail.com>', [user.email]
+        html_message = loader.render_to_string(str(settings.BASE_DIR) + '/templates/mail/confirm_mail.html', 
+            {'activation_link': activation_link, 'user': user})
+        message = ''
+        send_mail(subject, message, from_email, to, fail_silently=False, html_message=html_message)
+
+        return redirect('/thankyou/')
+
+
+class VerifyEmail(UpdateView):
+    def get(self, request, slug):
+        email = base64.b64decode(slug).decode()
+        try:
+            User.objects.filter(email=email).update(is_active=True)
+        except:
+            pass
+
+        return HttpResponseRedirect('/')
 
 
 class LoginPage(TemplateView):
