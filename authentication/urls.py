@@ -10,6 +10,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('profile/', ProfileView.as_view(), name='profile'),
     path('editprofile/', EditProfileView.as_view(), name='editprofile'),
-    path('thankyou/', SuccessView.as_view(), name='thankyou'),
     path('contact/', ContactView.as_view(), name='contact'),
+    path('cart/', CartPage.as_view(), name='cart'),
+    path('wishlist/', WishlistPage.as_view(), name='wishlist'),
+    path('add-cart/', AddToCart.as_view(), name='add-cart'),
 ]

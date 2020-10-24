@@ -1,0 +1,168 @@
+{% extends 'common/main.html'%}
+{% load static %}
+{% block title %}EditProfile | Delicious Rolls{% endblock %}
+{% block content %}
+
+{% if order.count == 0 %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <section class="ftco-section container text-align-center">
+        <div class="container-fluid text-center">
+            <div class="card card-2 d-inline-flex p-2">
+                <div class="card-body container-fluid  text-center">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img class="img-fluid" src="{% static '/images/Empty1.gif' %}" height="350px" style="max-height: 350px;">
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h1>No Orders Yet <i class="icon-thumb_down"></i></h1>
+                                </div>
+                                <div class="col-12">
+                                    <a href="/" class="btn btn-primary">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <style type="text/css">
+        .ftco-section {padding: 2em 0;position: relative;}
+        .card-2 {box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.4)}
+        .card-2:hover {box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.6)}
+    </style>
+{% else %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/orders.css' %}">
+    <section class="container" style="padding-top: 3rem;">
+        <div class="main-content" >      
+            <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 heading-section ftco-animate text-center">
+                    <h2 class="mb-4" style="color: #fff;">Your Orders</h2>
+                    <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+                </div>  
+            </div>
+            {% for x in order %}
+                <div class="col-12 order-xl-1  ftco-animate" style="margin-bottom: 3rem; ">
+                    <div class="card bg-secondary shadow">
+                        <div class="card-header bg-white border-0">
+                            <div class="row align-items-center">
+                                <div class="col-9">
+                                    <h3 class="mb-0">Transaction Id: {{x.checkout}}</h3>
+                                    <h3>{{cart.product.name}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-between mb-3">
+                                <div class="col-auto">
+                                    <h6 class="color-1 mb-0 change-color">Product Details</h6>
+                                </div>
+                                <div class="col-auto "><small>{{x.createdDate}}</small></div>
+                            </div>
+                            {% for c in cart %}
+                                {% if c.checkout == x.checkout %}
+                                    <div class="row" style="padding-top: 1rem;">
+                                        <div class="col">
+                                            <div class="card card-2">
+                                                <div class="card-body">
+                                                    <div class="media">
+                                                        <a href="/product/{{c.product.slug}}/"><div class="sq align-self-center "> <img class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" src="/media/{{c.product.image1}}" width="135" height="135" /> </div></a>
+                                                        <div class="media-body my-auto text-right">
+                                                            <div class="row my-auto flex-column flex-md-row">
+                                                                <div class="col-auto my-auto">
+                                                                    <h1 class="mb-0">{{c.product.name}}</h1>
+                                                                </div>
+                                                                <div class="col-sm-12 my-auto"> {{c.product.category}} </div>
+                                                                <div class="col-sm-12 my-auto">{{c.product.subCategory}}</div>
+                                                                <div class="col-sm-12 my-auto"> Qty : {{c.quantity}} </div>
+                                                                <div class="col-sm-12 my-auto">₹ {{c.product.total}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style="margin-top: 1rem;">
+                                                        <div class="col-md-3 mb-3"> <small> {{x.status}} <span><i class=" ml-2 fa fa-refresh" aria-hidden="true"></i></span></small> </div>
+                                                        <div class="col mt-auto">
+                                                            <div class="progress my-auto">
+                                                                <div class="progress-bar progress-bar rounded" style="width: {% if x.status == 'Order Placed' %}25%{% endif %}" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            </div>
+                                                            <div class="media row justify-content-between ">
+                                                                <div class="col-auto text-right"><span> <small class="text-right mr-sm-2">Order Placed</small></span></div>
+                                                                <div class="flex-col"> <span> <small class="text-right mr-sm-2">Shipping</small></span></div>
+                                                                <div class="col-auto flex-col-auto"><small class="text-right mr-sm-2">Delivered</small></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <div class="row justify-content-between">
+                                        <div class="col-auto">
+                                            <p class="mb-1 text-dark"><b>Order Details</b></p>
+                                        </div>
+                                        <div class="flex-sm-col text-right col">
+                                            <p class="mb-1"><b>Total</b></p>
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1">₹{{x.total}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="flex-sm-col text-right col">
+                                            <p class="mb-1"> <b>Discount</b></p>
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1">₹ {{x.discount}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="flex-sm-col text-right col">
+                                            <p class="mb-1"><b>GST 18%</b></p>
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1">{{x.tax}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="flex-sm-col text-right col">
+                                            <p class="mb-1"><b>Delivery Charges</b></p>
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1">₹{{x.shipping_charge}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="flex-sm-col text-right col">
+                                            <h2 class="mb-1"><b>₹ {{ x.total }}</b></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row invoice ">
+                                <div class="col-6">
+                                    <p class="mb-1" style="font-weight: 600;">Shipping Address</p>
+                                    <p class="mb-1">{{ x.shipping_address }}</p>
+                                </div>
+                            </div>
+                            <hr style="color: #F9C464;margin: 0;border-top: 0.05rem solid;">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endif %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+    $(".home").removeClass('active');
+    $(".profile").addClass('active');
+</script>
+{% endblock %}

@@ -9,6 +9,11 @@
        url("../fonts/flaticon/font/Flaticon.woff") format("woff"),
        url("../fonts/flaticon/font/Flaticon.ttf") format("truetype"),
        url("../fonts/flaticon/font/Flaticon.svg#Flaticon") format("svg");
+  src: url("../fonts/flaticon/font1/Flaticon.eot");
+  src: url("../fonts/flaticon/font1/Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/flaticon/font1/Flaticon.woff") format("woff"),
+       url("../fonts/flaticon/font1/Flaticon.ttf") format("truetype"),
+       url("../fonts/flaticon/font1/Flaticon.svg#Flaticon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -41,3 +46,7 @@
 .flaticon-medal:before { content: "\f104"; }
 .flaticon-laugh:before { content: "\f105"; }
 .flaticon-chef:before { content: "\f106"; }
+.flaticon-food-cart:before { content: "\f100"; }
+.flaticon-food-cart-1:before { content: "\f101"; }
+.flaticon-shopping-cart-1:before { content: "\f102"; }
+.flaticon-shopping-cart-2:before { content: "\f103"; }

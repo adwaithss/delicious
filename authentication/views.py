@@ -4,8 +4,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+import os
+from django.conf import settings
 from .models import *
 from product.models import *
+from django.core.mail import send_mail
+import uuid
+from order.models import *
 
 
 class HomePage(TemplateView):
@@ -14,7 +19,7 @@ class HomePage(TemplateView):
     def get(self, request, *args, **kwargs):
         product1 = Product.objects.all().order_by('-id')[0:3]
         product2 = Product.objects.all().order_by('-id')[3:6]
-        banner = Banner.objects.all()
+        banner = Banner.objects.all().order_by('-id')
         
         context = {'product1': product1, 'product2':product2, 'banner':banner}
         return render(request, self.template_name, context)
@@ -53,6 +58,13 @@ class RegisterPage(TemplateView):
         profile.pin = request.POST['pin']
         profile.avatar = 'user_avatar/avatar.png'
         profile.save()
+        send_mail(
+            'Ragistration',
+            'Thanks for registering <3 DeliciousRolls.',
+            'testbyadwaith@gmail.com',
+            [user.email],
+            fail_silently=False,
+        )
         
         return redirect('/thankyou')
 
@@ -104,28 +116,67 @@ class EditProfileView(TemplateView):
        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        user = User.objects.get(id=request.user.id)
-        user.first_name = request.POST['firstname']
-        user.last_name = request.POST['lastname']
-        user.save()
+        if 'delete_avatar' in request.POST:
+            user = request.user.id
+            profile = UserProfile.objects.get(user=user)
+            profile.avatar = ""
+            profile.save()
+            return redirect('/editprofile')
+        elif 'get_avatar' in request.POST:
+            user = request.user.id
+            profile = UserProfile.objects.get(user=user)
+            profile_avatar = request.FILES['upload_avatar'].name
+            ext = os.path.splitext(profile_avatar)[1]
+            ext_c = '/user_avatar/' + str(user) + ext
+            c = request.FILES.get('upload_avatar')
+            path = settings.MEDIA_ROOT+'/'+ext_c
+            destination = open(path, 'wb+')
+            for chunk in c.chunks():
+                destination.write(chunk)
+                destination.close()
+            profile.avatar = ext_c
+            profile.save()
+        else:
+            user = User.objects.get(id=request.user.id)
+            user.first_name = request.POST['firstname']
+            user.last_name = request.POST['lastname']
+            user.save()
 
-        profile = UserProfile.objects.get(user=user)
-        profile.mobile = request.POST['mobile']
-        profile.address = request.POST['address']
-        profile.district = request.POST['district']
-        profile.state = request.POST['state']
-        profile.pin = request.POST['pin']
-        profile.save()
-
+            profile = UserProfile.objects.get(user=user)
+            profile.mobile = request.POST['mobile']
+            profile.address = request.POST['address']
+            profile.district = request.POST['district']
+            profile.state = request.POST['state']
+            profile.pin = request.POST['pin']
+            profile.save()
         return redirect('/profile')
 
 
-class SuccessView(TemplateView):
-	template_name = "authentication/thankyou.html"
+class CartPage(TemplateView):
+    template_name = "authentication/cart.html"
 
-	def get(self, request, *args, **kwargs):
-		context = {}
-		return render(request, self.template_name, context)
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        cart = Cart.objects.filter(is_active=True, user=request.user.userprofile).order_by('-id')
+        total = 0
+        for x in cart:
+            total += x.total
+        context = {'cart': cart, 'total':total}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        if 'cart_remove' in request.POST:
+            cart = Cart.objects.filter(id=request.POST['cart'])
+            cart.delete()
+        return redirect('/cart/')
+
+
+class WishlistPage(TemplateView):
+    template_name = "authentication/wishlist.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
 
 
 class ContactView(TemplateView):
@@ -136,5 +187,35 @@ class ContactView(TemplateView):
 		return render(request, self.template_name, context)
 
 
+class AddToCart(CreateView):
+    def post(self, request, *args, **kwargs):
+        user = request.user.id
+        product = Product.objects.get(id=request.POST['product'])
+        quantity = request.POST['quantity']
+        tax = product.tax
+        if product.specialPrice == 0.0:
+            total = float(product.price) * float(quantity)
+            price = product.price
+        else:
+            total = float(product.specialPrice) * float(quantity)
+            price = product.specialPrice
+        
+        checkout, created = CheckOut.objects.get_or_create(user=request.user.userprofile, is_active=True)
+        checkout.user = request.user.userprofile
+        if not len(checkout.txnid) == 0 :
+            checkout.txnid = checkout.txnid
+        else:
+            checkout.txnid = uuid.uuid1().int >> 64
+        checkout.total += total
+        checkout.save()
 
+        cart = Cart()
+        cart.checkout = checkout
+        cart.product = product
+        cart.user = request.user.userprofile
+        cart.price = price
+        cart.quantity = quantity
+        cart.total = total
+        cart.save()
 
+        return redirect('/cart/')

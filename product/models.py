@@ -53,9 +53,10 @@ class Product(models.Model):
 	tag = models.ManyToManyField(Tag, null=True)
 	tax = models.ForeignKey(Tax, null=True, on_delete=models.SET_NULL)
 	price = models.FloatField()
-	specialPrice = models.FloatField()
+	specialPrice = models.FloatField(default=0.0)
 	cost = models.FloatField()
-	total = models.FloatField()
+	disc_total = models.FloatField(default=0.0)
+	total = models.FloatField(default=0.0)
 	quantity = models.IntegerField()
 	stock = models.BooleanField(default=True)
 	status = models.CharField(max_length=10, choices=STATUS)
@@ -67,7 +68,13 @@ class Product(models.Model):
 	updatedDate = models.DateTimeField(auto_now=True)
 
 	def save(self, *args, **kwargs):
-		self.slug = slugify(self.name) + "-" + slugify(self.category.name) + "-" + str(self.id) 
+		self.slug = slugify(self.name) + "-" + slugify(self.category.name) + "-" + str(self.id)
+		if self.specialPrice == 0.0:
+			self.total = "{:.2f}".format(self.price * ( 1 + (self.tax.tax / 100)))
+			self.disc_total =  0.0
+		else:
+			self.total = "{:.2f}".format(self.specialPrice * ( 1 + (self.tax.tax / 100)))
+			self.disc_total = "{:.2f}".format(self.price * ( 1 + (self.tax.tax / 100)))
 		super(Product, self).save(*args, **kwargs)
 
 	def __str__(self):

@@ -28,9 +28,7 @@
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
-                  <a href="#">
-                    <img src="/media/{{request.user.userprofile.avatar}}" class="rounded-circle">
-                  </a>
+                  <img src="/media/{{request.user.userprofile.avatar}}" class="rounded-circle">
                 </div>
               </div>
             </div>
@@ -74,7 +72,9 @@
                 <div>
                 <hr class="my-4">
                 <p>{{request.user.first_name|title}}, thanks for being a part of Delicious Rolls</p>
-                <a href="#">Show more</a>
+                <div class="form-group">
+                <a href="/order/orders/">View Orders</a>
+                </div>
               </div>
             </div>
           </div>

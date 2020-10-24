@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     'authentication',
     'product',
+    'order',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [
@@ -109,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE =  'Asia/Calcutta'
 
 USE_I18N = True
 
@@ -130,3 +132,9 @@ STATICFILES_FINDERS = ('django.contrib.staticfiles.finders.FileSystemFinder',
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'testbyadwaith@gmail.com'
+EMAIL_HOST_PASSWORD = 'testbyadwaith1@'
+EMAIL_PORT = 587

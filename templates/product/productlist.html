@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}Our Dishes | Delicious Rolls{% endblock %}
 {% block content %}
+{% load mathfilters %}
 
 <section class="ftco-section">
 	<div class="container">
@@ -21,7 +22,7 @@
 						<h2 class="heading mt-2"  style="font-size: 1.55rem;"><a target="_blank" href="/product/{{x.slug}}/">{{x.name}}</a></h2>
 						<p>{{x.description |linebreaks|slice:80}}</p>
 
-						<h3><span  class="text-muted"><del>₹{{x.price}}</del></span> <span class="heading"><strong> ₹{{x.specialPrice}}</strong></span></h3>
+						<h3>{% if not x.disc_total == 0.0 %}<span  class="text-muted"><del>₹{{x.disc_total}}</del></span>{% endif %}  <span class="heading"><strong>₹{{x.total}}</strong></span></h3>
 						<p><a href="#" class="btn btn-primary">Order Now</a> <a href="#" class="btn btn-white btn-outline-white">Add to Cart</a></p>
 					</div>
 				</div>

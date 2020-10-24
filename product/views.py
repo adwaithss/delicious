@@ -34,17 +34,3 @@ class ProductPage(TemplateView):
         context = {'product':product, 'related_product':related_product}
         return render(request, self.template_name, context)
 
-
-class CartPage(TemplateView):
-    template_name = "product/cart.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
-
-
-class WishlistPage(TemplateView):
-    template_name = "product/wishlist.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
-

@@ -4,44 +4,47 @@
 {% block content %}
 
 <section class="ftco-section ftco-degree-bg">
-    <div class="container">
+    <div class="container padding">
         <div class="row">
-            <div class="col-md-6 ftco-animate">
+            <div class="col-md-6 col-sm-12 ftco-animate" >
                 <div  class="home-slider owl-carousel img ">
                     <div class="slider-item">
-                        <a href=""><i class="icon-heart" aria-hidden="true"></i></a>
-                        <img src="/media/{{product.image1}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
+                        <img src="/media/{{product.image1}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: .6rem;border: 2px solid;size: 50%">
                     </div>
                     {% if product.image2 %}
                     <div class="slider-item">
-                        <a href=""><i class="icon-heart" aria-hidden="true"></i></a>
-                        <img src="/media/{{product.image2}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
+                        <img src="/media/{{product.image2}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: .6rem;border: 2px solid;">
                     </div>
                     {% endif %}
                     {% if product.image2 %}
                     <div class="slider-item">
-                        <a href=""><i class="icon-heart" aria-hidden="true"></i></a>
-                        <img src="/media/{{product.image3}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
+                        <img src="/media/{{product.image3}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: .6rem;border: 2px solid;">
                     </div>
                     {% endif %}
                     {% if product.image2 %}
                     <div class="slider-item">
-                        <a href=""><i class="icon-heart" aria-hidden="true"></i></a>
-                        <img src="/media/{{product.image4}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: 25px;border: 5px solid;">
+                        <img src="/media/{{product.image4}}" class="img-fluid  border-dark shadow" alt="" style="border-radius: .6rem;border: 2px solid;">
                     </div>
                     {% endif %}
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12 ftco-animate">
+            <div class="col-md-6  col-sm-12 ftco-animate align-self-center">
                 <span class="subheading">Delicious</span>
-                <h1 class="mb-4"><span style="color: #fac564;font-size: 2.5rem;"><strong>{{product.name}}</strong></span></h1>
+                <h1 class="mb-4"><span style="color: #fff;font-size: 2.5rem;"><strong>{{product.name}}</strong></span></h1>
                 <p class="mb-4 mb-md-5">{{product.description}}</p>
-                <h2 class="mb-4 mb-md-5"><span style="font-size: 1rem;"><del>₹{{product.price}}</del></span>  <span style="color: #fac564;font-size: 2.2rem;"><strong>₹{{product.specialPrice}}</strong></span></h2>
+                <h2 class="mb-4 mb-md-5">{% if not product.disc_total == 0.0 %}<span style="font-size: 1rem;"><del>₹{{product.disc_total}}</del></span>{% endif %}  <span style="color: #fff;font-size: 2.2rem;"><strong>₹{{product.total}}</strong></span></h2>
                 <p class="mb-4 mb-md-5">{{product.category}} | {{product.subCategory}}</p>
                 <p class="mb-4 mb-md-5">{{product.quantity}} left</p>
-
-                <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Add to Cart</a></p>
-
+                <a href="/wishlist/"><p class="mb-4 mb-md-5"><i class="icon-heart" aria-hidden="true"></i> Add to wishlist</p></a>
+                <form action="/add-cart/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="hidden" name="product" value="{{product.id}}">
+                        <input type="number" class="p-3 px-xl-4 py-xl-3 cart_quantity" name="quantity" min="1" max="{{product.quantity}}" placeholder="Quantity" required="">
+                        <input type="submit" class="btn btn-primary p-3 px-xl-4 py-xl-3" name="add-cart" value="Add to Cart">
+                    </div>
+               <!--  <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Add to Cart</a></p> -->
+                </form>
             </div>
         </div>
     </div>
@@ -56,9 +59,9 @@
         </div>
         <div class="row">
             {% for x in related_product %}
-            <div class="col-md-3 text-center ftco-animate">
+            <div class="col-md-3 col-6 text-center ftco-animate">
                 <div class="menu-wrap">
-                    <a target="_blank" href="/product/{{x.slug}}" class="menu-img img mb-4" style="background-image: url(/media/{{x.image1}});"></a>
+                    <a target="_blank" href="/product/{{x.slug}}" class="menu-img img mb-4 shadow" style="background-image: url(/media/{{x.image1}});border-radius: 2%;"></a>
                     <div class="text">
                         <h3><a target="_blank" href="/product/{{x.slug}}">{{x.name}}</a></h3>
                         <p>{{x.description}}</p>
@@ -73,27 +76,18 @@
 </section>
 
 <style>
+    .cart_quantity{width: 25%; background: #121618;color: #fff;border: 0;background-color: transparent;}
+    .cart_quantity:hover{background: transparent;}
     .owl-carousel.home-slider{height: 520px;}
-    i{
-        font-size: 2.5rem;
-        position: absolute;
-        padding-top: 20px;
-        padding-left: 20px;
-        color: white;  
-        text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
-    }
-    i:hover{
-        color: #D3D3D3;
-        background-color: #666666;
-        background-color: #666666;
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
-    
-  
-    }
+    .cart_quantity::placeholder{color: white;}
+    .cart_quantity:focus{border: 0px;}
+    .mb-md-5, .my-md-5{margin-bottom: 1.5rem !important;}
+    h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5, p {
+    line-height: normal;
+    font-weight: 400;}
+    .owl-carousel.home-slider {
+    height: 387px;}
+    .owl-dots{display: none;}
 </style>
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script>

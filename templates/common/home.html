@@ -42,43 +42,7 @@
 				</div>
 			</div>
 		{% endfor %}
-
-		<!-- <div class="slider-item">
-			<div class="overlay"></div>
-			<div class="container">
-				<div class="row slider-text align-items-center" data-scrollax-parent="true">
-
-					<div class="col-md-6 col-sm-12 order-md-last ftco-animate">
-						<span class="subheading">Crunchy</span>
-						<h1 class="mb-4">Italian Pizza</h1>
-						<p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-						<p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
-					</div>
-					<div class="col-md-6 ftco-animate">
-						<img src="{% static 'images/bg_2.png' %}" class="img-fluid" alt="">
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-		<div class="slider-item" style="background-image: url({% static 'images/bg_3.jpg' %});">
-			<div class="overlay"></div>
-			<div class="container">
-				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
-					<div class="col-md-7 col-sm-12 text-center ftco-animate">
-						<span class="subheading">Welcome</span>
-						<h1 class="mb-4">We cooked your desired Pizza Recipe</h1>
-						<p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-						<p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
-					</div>
-
-				</div>
-			</div>
-		</div> -->
 	</section>
-
 	<section class="ftco-intro">
 		<div class="container-wrap">
 			<div class="wrap d-md-flex">
@@ -117,19 +81,6 @@
 			</div>
 		</div>
 	</section>
-
-	<!-- <section class="ftco-about d-md-flex">
-		<div class="one-half img" style="background-image: url({% static 'images/about.jpg' %});"></div>
-		<div class="one-half ftco-animate">
-			<div class="heading-section ftco-animate ">
-				<h2 class="mb-4">Welcome to <span class="flaticon-pizza">Pizza</span> A Restaurant</h2>
-			</div>
-			<div>
-				<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
-			</div>
-		</div>
-	</section> -->
-
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3">
@@ -146,9 +97,9 @@
 						<div class="services-wrap d-flex">
 							<a target="_blank" href="/product/{{product.slug}}/" class="img" style="background-image: url(media/{{product.image1}});"></a>
 							<div class="text p-4">
-								<h3>{{product.name}}</h3>
+								<a target="_blank" href="/product/{{product.slug}}/"><h3>{{product.name}}</h3></a>
 								<p>{{product.description|linebreaks|slice:80}}</p>
-								<p class="price"><span>₹ {% if product.specialPrice %} {{product.specialPrice}} {% else %} {{product.price}} {% endif %}</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">Order</a></p>
+								<p class="price"><span>₹{{product.total}}</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">Order</a></p>
 							</div>
 						</div>
 					</div>
@@ -159,9 +110,9 @@
 						<div class="services-wrap d-flex">
 							<a target="_blank" href="/product/{{product.slug}}/" class="img order-lg-last" style="background-image: url(media/{{product.image1}});"></a>
 							<div class="text p-4">
-								<h3>{{product.name}}</h3>
+								<a target="_blank" href="/product/{{product.slug}}/"><h3>{{product.name}}</h3></a>
 								<p>{{product.description|linebreaks|slice:80}}</p>
-								<p class="price"><span>₹ {% if product.specialPrice %} {{product.specialPrice}} {% else %} {{product.price}} {% endif %}</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">Order</a></p>
+								<p class="price"><span>₹{{product.total}}</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">Order</a></p>
 							</div>
 						</div>
 					</div>
@@ -216,7 +167,6 @@
 			</div>
 		</div>
 	</section>
-
 	<section class="ftco-gallery">
 		<div class="container-wrap">
 			<div class="row no-gutters">
@@ -251,8 +201,6 @@
 			</div>
 		</div>
 	</section>
-
-
 	<section class="ftco-counter ftco-bg-dark img" id="section-counter" style="background-image: url({% static 'images/bg_2.jpg' %});" data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -300,12 +248,6 @@
 			</div>
 		</div>
 	</section>
-
-	
-
-	
-
-
 	<section class="ftco-appointment">
 		<div class="overlay"></div>
 		<div class="container-wrap">

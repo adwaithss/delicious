@@ -39,17 +39,20 @@
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item home active"><a href="/" class="nav-link">Home</a></li>
-                    <li class="nav-item dish"><a href="/dishes/" class="nav-link">Dishes</a></li>
+                    <li class="nav-item dish"><a href="/product/" class="nav-link">Dishes</a></li>
                     <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+                    <li class="nav-item contact"><a href="/contact" class="nav-link">Contact</a></li>
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown profile">
                         <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> <img src="/media/{{request.user.userprofile.avatar}}" class="avatar avatar-sm rounded-circle"> {{request.user.first_name|title}}</a>
                         <ul class="dropdown-menu profile_drop">
                             <li><a class="dropdown-item" href="/profile/"> Profile </a></li>
+                            <li><a class="dropdown-item" href="/wishlist/"> Wishlist </a></li>
+                            <li><a class="dropdown-item" href="/order/orders/"> Orders </a></li>
                             <li><a class="dropdown-item" href="/logout/"> Logout </a></li>
                         </ul>
                     </li>
+                    <li class="nav-item cart"><a href="/cart/" class="nav-link"> <i class="flaticon-shopping-cart-2" style="font-size: 1.5rem;"></i><span class="badge badge-pill badge-warning">4</span></a></li>
                     {% else %}
                         <li class="nav-item register"><a href="/login/" class="nav-link">Sign In</a></li>
                     {% endif %}
