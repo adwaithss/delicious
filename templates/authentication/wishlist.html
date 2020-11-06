@@ -2,52 +2,97 @@
 {% load static %}
 {% block title %}Wishlist | Delicious Rolls{% endblock %}
 {% block content %}
-
+{% if wishlist.count == 0 %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <section class="ftco-section container text-align-center">
+        <div class="container-fluid text-center">
+            <div class="card card-2 d-inline-flex p-2">
+                <div class="card-body container-fluid  text-center">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img class="img-fluid" src="{% static '/images/Feeling Blue.gif' %}" height="350px" style="max-height: 350px;">
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <div class="row">
+                                <div class="col-12 heading-section">
+                                    <h1>Wishlist is Empty <i class="icon-heartbeat"></i></h1>
+                                    <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+                                </div>
+                                <div class="col-12">
+                                    <a href="/" class="btn btn-primary">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style type="text/css">
+        .ftco-section {padding: 2em 0;position: relative;}
+        .card-2 {box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.4)}
+        .card-2:hover {box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.6)}
+    </style>
+{% else %}
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
                 <h2 class="mb-4">Your Wishlist</h2>
                 <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
-                <p class="mt-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
-                <div class="staff">
-                    <div class="img mb-4" style="background-image: url({% static 'images/pizza-7.jpg' %});"></div>
-                    <div class="info text-center">
-                        <h3><a href="teacher-single.html">Italian Pizza</a></h3>
-                        <div class="row d-flex justify-content-center">
-                            <p><a href="#" class="btn btn-primary">Order Now</a></p>
-                            <p><a href="#" class="btn btn-white btn-outline-white">Move To cart</a></p>
-                        </div>
-                        <div class="text">
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        <div class="row p-3">
+            {% for x in wishlist %}
+                <div class="col-lg-3 col-md-6 col-sm-12 d-flex mb-sm-4 ftco-animate">
+                    <div class="staff">
+                        <a href="/product/{{x.product.slug}}"><div class="img mb-4" style="background-image: url(/media/{{x.product.image1}});border: 0;"></div></a>
+                        <div class="info text-center">
+                            <h3><a href="/product/{{x.product.slug}}">{{x.product.name}}</a></h3>
+                            <div class="row d-flex justify-content-center">
+                                <form action="/add-cart/" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product" value="{{x.product.id}}">
+                                    <div class="row">
+                                        <div>
+                                            <input type="number" class="btn btn-primary"name="quantity" min="1" max="{{x.product.quantity}}" placeholder="Quantity" required="" style="width: 6.2rem;">
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-white btn-outline-white">Add To cart</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="text mt-1">
+                                <form action="" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="wishlist" value="{{x.id}}">
+                                    <button class="card-link-secondary small text-uppercase mr-3" name="wishlist_remove">
+                                    <i class="icon-trash"></i> Remove From Wishlist</button>
+                                </form>
+                                <p>{{x.product.description}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
-                <div class="staff">
-                    <div class="img mb-4" style="background-image: url({% static 'images/Mail sent.gif' %});"></div>
-                    <div class="info text-center">
-                        <h3><a href="teacher-single.html">Chicken Burger</a></h3>
-                        <div class="row d-flex justify-content-center">
-                            <p><a href="#" class="btn btn-primary">Order Now</a></p>
-                            <p><a href="#" class="btn btn-white btn-outline-white">Move To cart</a></p>
-                        </div>
-                        <div class="text">
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
+{% endif %}
+<style>
+    .ftco-section {padding: 2em 0;position: relative;}
+    button{background-color: transparent;border: 0;color: #F9C464;cursor: pointer;}
+    button:focus{outline: none;}
+    button:hover{color: #c19646;}
+    input::placeholder{color: #000;}
+    input:hover::placeholder{color: #F9C464;}
+    input[type=number]::-webkit-inner-spin-button {-webkit-appearance: none;}
+</style>
+<script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
     $(".home").removeClass('active');
+    $(".profile").addClass('active');
 </script>
 
 {% endblock %}

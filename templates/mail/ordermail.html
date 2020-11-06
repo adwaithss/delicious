@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		.invoice-box{
+			max-width:800px;
+			margin:auto;
+			padding:30px;
+			border:1px solid #eee;
+			box-shadow:0 0 10px rgba(0, 0, 0, .15);
+			font-size:16px;
+			line-height:24px;
+			font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+			color:#555;
+		}
+
+		.invoice-box table{
+			width:100%;
+			line-height:inherit;
+			text-align:left;
+		}
+
+		.invoice-box table td{
+			padding:5px;
+			vertical-align:top;
+		}
+
+		.invoice-box table tr td:nth-child(2){
+			text-align:right;
+		}
+
+		.invoice-box table tr.top table td{
+			padding-bottom:20px;
+		}
+
+		.invoice-box table tr.top table td.title{
+			font-size:45px;
+			line-height:45px;
+			color:#333;
+		}
+
+		.invoice-box table tr.information table td{
+			padding-bottom:40px;
+		}
+
+		.invoice-box table tr.heading td{
+			background:#eee;
+			border-bottom:1px solid #ddd;
+			font-weight:bold;
+		}
+
+		.invoice-box table tr.details td{
+			padding-bottom:20px;
+		}
+
+		.invoice-box table tr.item td{
+			border-bottom:1px solid #eee;
+		}
+
+		.invoice-box table tr.item.last td{
+			border-bottom:none;
+		}
+
+		.invoice-box table tr.total td:nth-child(2){
+			border-top:2px solid #eee;
+			font-weight:bold;
+		}
+		.total{
+			background-color: #EEEEEE;
+		}
+
+		@media only screen and (max-width: 600px) {
+			.invoice-box table tr.top table td{
+				width:100%;
+				display:block;
+				text-align:center;
+			}
+
+			.invoice-box table tr.information table td{
+				width:100%;
+				display:block;
+				text-align:center;
+			}
+		}
+	</style>
+</head>
+<body>
+	{% load static %}
+	{% load humanize %}
+	{% load mathfilters %}
+	<div class="invoice-box">
+		<a href="#">
+			<img style="text-align:center;" width="100px" src="https://freepngimg.com/download/success/6-2-success-png-image.png">
+		</a>
+		<p style="font-size:18px;color:#CC660F;margin:15px 0 0 0;font-weight:normal"><strong>Hello {{user.user.first_name}} {{user.user.last_name}}</strong>,</p>
+		<p>Thank you for your order. We’ll notify you once your order is shipped.</p>
+		<table cellpadding="0" cellspacing="0">
+			<tr class="information">
+				<td colspan="6">
+					<table>
+						<tr>
+							<td>
+								<p>Order ID : #{{order.checkout}}</p>
+								<p>Placed on : {{order.createdDate}}</p>
+							</td>
+							<td>
+								<p><b>Your Order will be delivered to : </b></p>
+								<p>{{user.user.first_name}} {{user.user.last_name}}</p>
+								{{user.address|linebreaks}}
+								<p>{{user.district}}</p>
+								<p>{{user.state}}</p>
+								<p>{{user.country}}</p>
+								<p>{{user.pin}}</p>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr class="heading">
+				<td># No.</td>
+				<td>Product Name</td>
+				<td>Quantity</td>
+				<td>Unit Price</td>
+				<td>Total</td>
+			</tr>
+			{% for x in prd_cart %}
+				<tr class="item">
+					<td>{{forloop.counter}}.</td>
+					<td>{{x.product.name}}</td>
+					<td>{{x.quantity}}</td>
+					<td>{{x.price}}</td>
+					<td>{{x.total}}</td>
+				</tr>
+			{% endfor %}
+				<tr class="total">
+					<td colspan="5" align="right">Total : ₹{{ order.total|sub:order.shipping_charge|floatformat:2|intcomma }}</td>
+				</tr>
+				<tr class="total">
+					<td colspan="5" align="right">Shipping Charge : ₹{{order.shipping_charge}}</td>
+				</tr>
+			{% if o.checkout.is_promo == True %}
+				<tr class="total">
+					<td colspan="5" align="right">Platform Discount : ₹{{s.checkout.promo_discount|floatformat:2|intcomma}}</td>
+				</tr>
+				<tr class="total">
+					<td colspan="5" align="right"><b>Grand Total : ₹{{o.amount|sub:s.checkout.promo_discount|floatformat:2|intcomma}}</b></td>
+				</tr>
+			{% else %}
+				<tr class="total">
+					<td colspan="5" align="right"><b>Grand Total : ₹{{order.total|floatformat:2|intcomma}}</b></td>
+				</tr>
+			{% endif %}
+		</table>
+		<div>
+			<p><b>Best Wishes,</b></p>
+			<p><b>Team Delicious Rolls</b></p>
+		</div>
+	</div>
+</body>
+</html>

@@ -20,3 +20,20 @@ class Dashboard(TemplateView):
         
         context = {}
         return render(request, self.template_name, context)
+
+
+class OrderManagement(TemplateView):
+    template_name = "administrator/orders.html"
+
+    def get(self, request, *args, **kwargs):
+        order = Order.objects.all().order_by('-id')
+
+        context = {'order': order}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+    	print(request.POST['checkout'])
+    	order = Order.objects.get(checkout__txnid=request.POST['checkout'])
+    	order.status = request.POST['status']
+    	order.save()
+    	return redirect('/administrator/ordermanagement')

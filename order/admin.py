@@ -22,8 +22,15 @@ class CheckoutAdmin(admin.ModelAdmin):
     search_fields = ['txnid']
 
 
+class WishlistAdmin(admin.ModelAdmin):
+    list_display = ['user', 'product']
+    list_filter  = ['user', 'product']
+    ordering = ['-createdDate']
+
+
 admin.site.register(Order, OrderAdmin)
 
 admin.site.register(CheckOut, CheckoutAdmin)
 admin.site.register(Cart, CartAdmin)
+admin.site.register(Wishlist, WishlistAdmin)
 # admin.site.register(Order)

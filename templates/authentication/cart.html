@@ -59,7 +59,7 @@
 				<div class="mb-3">
 					<div class="pt-4">
 						{% for x in cart %}
-							<div class="row mb-4 staff container-fluid padding" style="margin: 0;">
+							<div class="row mb-4 staff container-fluid padding btnpl" style="margin: 0;">
 								<div class="col-md-5 col-lg-3 col-xl-3 col-8">
 									<a target="_blank" href="/product/{{x.product.slug}}/">
 										<img class="img-fluid border-dark rounded shadow" src="/media/{{x.product.image1}}" alt="Sample">
@@ -68,7 +68,7 @@
 								<div class="col-md-7 col-lg-9 col-xl-9 col-sm-12">
 									<div class="d-flex justify-content-between">
 										<div>
-											<h5>{{x.product.name}}</h5>
+											<a target="_blank" href="/product/{{x.product.slug}}/"><h5>{{x.product.name}}</h5></a>
 											<p class="mb-3 text-muted text-uppercase small">Category - {{x.product.category}}</p>
 											<p class="mb-2 text-muted text-uppercase small">Sub category: {{x.product.subCategory}}</p>
 											<p class="mb-3 text-muted text-uppercase small">Tag: {% for tag in x.product.tag.all %}{{tag}}, {% endfor %}</p>
@@ -81,16 +81,20 @@
 										</div>
 									</div>
 									<div class="d-flex justify-content-between align-items-center">
-										<div>
+										<div class="row">
 											<form action="" method="POST">
 												{% csrf_token %}
 												<input type="hidden" name="cart" value="{{x.id}}">
-											<button style="background-color: transparent;border: 0;color: #F9C464;" class="card-link-secondary small text-uppercase mr-3" name="cart_remove">
+											<button class="card-link-secondary small text-uppercase mr-3" name="cart_remove">
 												<i class="icon-trash"></i> Remove item 
 											</button>
-											<a href="#!" type="button" class="card-link-secondary small text-uppercase">
-												<i class="icon-heart"></i> Move to wish list 
-											</a>
+											</form>
+											<form action="/add-wishlist/" method="POST">
+												{% csrf_token %}
+                    						<input type="hidden" name="product" value="{{x.product.id}}">
+											<button class="card-link-secondary small text-uppercase mr-3" name="wishlist_add">
+												<i class="icon-heart"></i> Move to wish list
+											</button>
 											</form>
 										</div>
 										<p class="mb-0"><span><strong id="summary">₹{{x.price}}</strong></span></p class="mb-0">
@@ -126,7 +130,7 @@
 								</li>
 							</ul>
 						</div>
-						<form action="/order/" method="POST">
+						<form action="/order/create/" method="POST">
 							{% csrf_token %}
 							<input type="hidden" name="checkout" value="{{cart.0.checkout}}">
 							<input type="hidden" name="total" value="{{total|add:40}}">
@@ -155,6 +159,12 @@
 			</div>
 		</div>
 	</div>
+<style>
+	.btnpl:hover{transform: translateY(-3px);box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);}
+	button{background-color: transparent;border: 0;color: #F9C464;cursor: pointer;}
+    button:focus{outline: none;}
+    button:hover{color: #c19646;}
+</style>
 </section>
 {% endif %}
 <script src="{% static 'js/jquery.min.js' %}"></script>

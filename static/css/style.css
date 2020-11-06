@@ -7664,6 +7664,16 @@ h1, h2, h3, h4, h5,
 .bg-primary {
   background: #fac564; }
 
+.badge-circle{
+  vertical-align: top;
+  background-color: #F9C464;
+  height: 20px;
+  min-width: 20px;
+  line-height: 20px;
+  padding: 0;
+  -webkit-border-radius: 10px;
+  border-radius: 10px; }
+
 .btn {
   cursor: pointer;
   -webkit-border-radius: 0;
@@ -8555,7 +8565,7 @@ textarea.form-control {
           opacity: 0; } }
     @media (max-width: 767.98px) {
       .ftco-menu .nav-pills .nav-link {
-        display: block;
+        
         width: 100%;
         margin-bottom: 5px; } }
 

@@ -5,6 +5,7 @@
     <title>{% block title %}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'images/favicon.png' %}" rel="icon" type="image/png">
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
@@ -48,11 +49,11 @@
                         <ul class="dropdown-menu profile_drop">
                             <li><a class="dropdown-item" href="/profile/"> Profile </a></li>
                             <li><a class="dropdown-item" href="/wishlist/"> Wishlist </a></li>
-                            <li><a class="dropdown-item" href="/order/orders/"> Orders </a></li>
+                            <li><a class="dropdown-item" href="/order/"> Orders </a></li>
                             <li><a class="dropdown-item" href="/logout/"> Logout </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item cart"><a href="/cart/" class="nav-link"> <i class="flaticon-shopping-cart-2" style="font-size: 1.5rem;"></i><span class="badge badge-pill badge-warning">4</span></a></li>
+                    <li class="nav-item cart"><a href="/cart/" class="nav-link"> <i class="flaticon-shopping-cart-2" style="font-size: 1.5rem;"></i><span class="badge badge-warning badge-circle">4</span></a></li>
                     {% else %}
                         <li class="nav-item register"><a href="/login/" class="nav-link">Sign In</a></li>
                     {% endif %}
@@ -97,7 +98,7 @@
                         <div class="block-23 mb-3">
                             <ul>
                                 <li><span class="icon icon-map-marker"></span><span class="text">Kannur University Campus, Managettuparamba, Kannur Kerala, India, PIN 670 567</span></li>
-                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+91 8111 81 9045</span></a></li>
+                                <li><a href="tel://+91 8111 819 045"><span class="icon icon-phone"></span><span class="text">+91 8111 81 9045</span></a></li>
                                 <li><a href="#"><span class="icon icon-envelope"></span><span class="text">adwaithss1997@yahoo.com</span></a></li>
                             </ul>
                         </div>
@@ -118,6 +119,7 @@
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
     <style type="text/css">
+        button:focus{outline: none;}
         .profile_drop{
             background-color: #121618 !important;
             margin-top: -15px;
@@ -125,6 +127,7 @@
 
         .profile_drop li a { color: #BFBFBF !important; }
         .profile_drop li a:hover { color: #FAC564 !important;background-color: #121618 !important; }
+        .profile_drop li a:focus { color: #FAC564 !important;background-color: #121618 !important; }
     </style>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>

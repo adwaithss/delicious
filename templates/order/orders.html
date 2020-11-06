@@ -1,6 +1,6 @@
 {% extends 'common/main.html'%}
 {% load static %}
-{% block title %}EditProfile | Delicious Rolls{% endblock %}
+{% block title %}Orders | Delicious Rolls{% endblock %}
 {% block content %}
 
 {% if order.count == 0 %}
@@ -15,8 +15,9 @@
                         </div>
                         <div class="col-md-7 d-flex align-items-center">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 heading-section">
                                     <h1>No Orders Yet <i class="icon-thumb_down"></i></h1>
+                                    <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
                                 </div>
                                 <div class="col-12">
                                     <a href="/" class="btn btn-primary">Shop Now</a>
@@ -27,7 +28,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </section>
     <style type="text/css">
         .ftco-section {padding: 2em 0;position: relative;}
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="padding-bottom: 5em;">
                             <div class="row justify-content-between mb-3">
                                 <div class="col-auto">
                                     <h6 class="color-1 mb-0 change-color">Product Details</h6>
@@ -67,32 +67,19 @@
                                 {% if c.checkout == x.checkout %}
                                     <div class="row" style="padding-top: 1rem;">
                                         <div class="col">
-                                            <div class="card card-2">
+                                            <div class="card card-2 btnpl">
                                                 <div class="card-body">
                                                     <div class="media">
-                                                        <a href="/product/{{c.product.slug}}/"><div class="sq align-self-center "> <img class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" src="/media/{{c.product.image1}}" width="135" height="135" /> </div></a>
+                                                        <a href="/product/{{c.product.slug}}/"><div class="sq align-self-center "> <img class="img-fluid my-auto align-self-center mr-md-4 pl-0 p-0 m-0 mr-3" src="/media/{{c.product.image1}}" width="135" height="135" /> </div></a>
                                                         <div class="media-body my-auto text-right">
                                                             <div class="row my-auto flex-column flex-md-row">
                                                                 <div class="col-auto my-auto">
-                                                                    <h1 class="mb-0">{{c.product.name}}</h1>
+                                                                    <h1 class="m-1">{{c.product.name}}</h1>
                                                                 </div>
                                                                 <div class="col-sm-12 my-auto"> {{c.product.category}} </div>
                                                                 <div class="col-sm-12 my-auto">{{c.product.subCategory}}</div>
                                                                 <div class="col-sm-12 my-auto"> Qty : {{c.quantity}} </div>
                                                                 <div class="col-sm-12 my-auto">₹ {{c.product.total}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row" style="margin-top: 1rem;">
-                                                        <div class="col-md-3 mb-3"> <small> {{x.status}} <span><i class=" ml-2 fa fa-refresh" aria-hidden="true"></i></span></small> </div>
-                                                        <div class="col mt-auto">
-                                                            <div class="progress my-auto">
-                                                                <div class="progress-bar progress-bar rounded" style="width: {% if x.status == 'Order Placed' %}25%{% endif %}" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                            <div class="media row justify-content-between ">
-                                                                <div class="col-auto text-right"><span> <small class="text-right mr-sm-2">Order Placed</small></span></div>
-                                                                <div class="flex-col"> <span> <small class="text-right mr-sm-2">Shipping</small></span></div>
-                                                                <div class="col-auto flex-col-auto"><small class="text-right mr-sm-2">Delivered</small></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -123,20 +110,18 @@
                                             <p class="mb-1">₹ {{x.discount}}</p>
                                         </div>
                                     </div>
-                                    <div class="row justify-content-between">
-                                        <div class="flex-sm-col text-right col">
-                                            <p class="mb-1"><b>GST 18%</b></p>
-                                        </div>
-                                        <div class="flex-sm-col col-auto">
-                                            <p class="mb-1">{{x.tax}}</p>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="row justify-content-between">
                                         <div class="flex-sm-col text-right col">
                                             <p class="mb-1"><b>Delivery Charges</b></p>
                                         </div>
                                         <div class="flex-sm-col col-auto">
                                             <p class="mb-1">₹{{x.shipping_charge}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="flex-sm-col text-right col">
+                                            <p class="mb-1"><b>{{x.status}}</b></p>
                                         </div>
                                     </div>
                                     <div class="row justify-content-between">
@@ -152,7 +137,18 @@
                                     <p class="mb-1">{{ x.shipping_address }}</p>
                                 </div>
                             </div>
-                            <hr style="color: #F9C464;margin: 0;border-top: 0.05rem solid;">
+                            <div class="col mt-3">
+                                <div class="progress my-auto">
+                                    <div class="progress-bar progress-bar rounded" style="width: {% if x.status == 'Order Placed' %}25%
+                                    {% elif x.status == 'Order Shipped' %}50%{% elif x.status == 'Order Delivered' %}100%{% endif %}"
+                                    role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="media row justify-content-between ">
+                                    <div class="col-auto text-right"><span> <small class="text-right mr-sm-4">Order Placed</small></span></div>
+                                    <div class="flex-col"> <span> <small class="text-right mr-sm-4">Shipping</small></span></div>
+                                    <div class="col-auto flex-col-auto"><small class="text-right">Delivered</small></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -165,4 +161,7 @@
     $(".home").removeClass('active');
     $(".profile").addClass('active');
 </script>
+<style>
+    .btnpl:hover{transform: translateY(-3px);}
+</style>
 {% endblock %}

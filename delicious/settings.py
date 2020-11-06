@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'product',
     'order',
     'mathfilters',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

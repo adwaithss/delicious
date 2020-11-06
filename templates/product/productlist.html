@@ -4,7 +4,20 @@
 {% block content %}
 {% load mathfilters %}
 
-<section class="ftco-section">
+<div class="p-3 px-lg-5 px-md-4 filters" style="" >
+	<div class="d-flex flex-row justify-content-between" >
+		<div class="text-left" style="line-height: 0;">
+			<h5 class="m-0" >Filters</h5>
+				<div class=" "><span >Category</span><i class="icon-keyboard_arrow_down"></i><span class="ml-2"> (9 items)</span></div>
+		</div>
+		<div class="text-right" style="line-height: 0;">
+			<h5 class="m-0" >SortBy</h5>
+				<div class=" "><span >Latest</span><i class="icon-keyboard_arrow_down"></i></div>
+		</div>
+	</div>
+</div>
+
+<section class="ftco-section pt-5">
 	<div class="container">
 		<div class="row justify-content-center mb-5 pb-3">
 			<div class="col-md-7 heading-section ftco-animate text-center">
@@ -12,27 +25,35 @@
 				<p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
 			</div>
 		</div>
-		<div class="row d-flex">
+		<div class="row d-flex text-center">
 			{% for x in product %}
-			<div class="col-md-4 d-flex ftco-animate ">
-				<div class="blog-entry align-self-stretch staff padding">
-					<a target="_blank" href="/product/{{x.slug}}/" class="block-20 rounded shadow" style="background-image: url('/media/{{x.image1}}');">
-					</a>
-					<div class="py-2 d-block">
-						<h2 class="heading mt-2"  style="font-size: 1.55rem;"><a target="_blank" href="/product/{{x.slug}}/">{{x.name}}</a></h2>
-						<p>{{x.description |linebreaks|slice:80}}</p>
+				<div class="col-md-6 col-lg-4 d-flex ftco-animate btnpl">
+					<div class="blog-entry align-self-stretch staff padding btnpl">
+						<a target="_blank" href="/product/{{x.slug}}/" class="block-20 rounded shadow" style="background-image: url('/media/{{x.image1}}');">
+						</a>
+						<div class="py-2 d-block">
+							<h2 class="heading mt-2"  style="font-size: 1.55rem;"><a target="_blank" href="/product/{{x.slug}}/">{{x.name}}</a></h2>
+							<p>{{x.description |linebreaks|slice:80}}</p>
 
-						<h3>{% if not x.disc_total == 0.0 %}<span  class="text-muted"><del>₹{{x.disc_total}}</del></span>{% endif %}  <span class="heading"><strong>₹{{x.total}}</strong></span></h3>
-						<p><a href="#" class="btn btn-primary">Order Now</a> <a href="#" class="btn btn-white btn-outline-white">Add to Cart</a></p>
+							<h3>{% if not x.disc_total == 0.0 %}<span  class="text-muted"><del>₹{{x.disc_total}}</del></span>{% endif %}  <span class="heading"><strong>₹{{x.total}}</strong></span></h3>
+							<form action="/add-cart/" method="POST">
+								{% csrf_token %}
+								<input type="hidden" name="product" value="{{x.id}}">
+								<div class="container-fluid"> <div class="d-flex align-items-center justify-content-center">
+									<p><input type="number" class="btn btn-primary p-3 p-md-2"name="quantity" min="1" max="{{x.quantity}}" placeholder="Quantity" required="" style="width: 6.5rem;"></p>
+									<p><button class="btn btn-white btn-outline-white p-3 p-md-2" name="add-cart">Add to Cart</button></p>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
-			{% empty %}
-			<p> No product available</p>
-			{% endfor %}
-		</div>
+			{% empty %}<p>
+			No product available</p>
+		{% endfor %}
+	</div>
 		
-		<div class="row mt-5">
+		<div class="row mt-5 px-3">
 			<div class="col text-center">
 				<div class="block-27">
 					<p>Page <b>{{ product.number }}</b> - {{ product.paginator.num_pages }} of <b>{{ product.paginator.count }}</b> products</p>
@@ -67,6 +88,14 @@
 </div>
 </section>
 
+<style>
+	.filters{background-color: #151A1C;box-shadow: inset 0px 11px 8px -10px rgba(0, 0, 0, 0.4), 0px 0px 8px 1px rgba(0, 0, 0, 0.8);}
+	.filters:hover{background-color: #121618;box-shadow: inset 0px 11px 8px -10px rgba(0, 0, 0, 0.7), 0px 0px 8px 1px rgba(0, 0, 0, 0.8);;}
+    input::placeholder{color: #000;}
+    input:hover::placeholder{color: #F9C464;}
+    input[type=number]::-webkit-inner-spin-button {-webkit-appearance: none;}
+    .btnpl:hover{transform: translateY(-5px);box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);}
+</style>
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
 	$(".home").removeClass('active');

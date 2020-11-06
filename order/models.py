@@ -49,3 +49,13 @@ class Order(models.Model):
 
 	def __str__(self):
 		return self.user.user.first_name
+
+
+class Wishlist(models.Model):
+	product = models.ForeignKey(Product, on_delete=models.CASCADE)
+	user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+	createdDate = models.DateTimeField(auto_now_add=True)
+	updatedDate = models.DateTimeField(auto_now=True)
+	
+	def __str__(self):
+		return self.user.user.first_name

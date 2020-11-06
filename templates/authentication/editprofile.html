@@ -24,7 +24,7 @@
                             <div class="container-fluid padding">
                                 <div class="form-group"></div>
                                 <div class="card-profile-image1">
-                                <img src="/media/{{request.user.userprofile.avatar}}" class="img-fluid rounded-circle shadow">
+                                <img src="/media/{{request.user.userprofile.avatar}}" class="img-fluid img rounded-circle shadow">
                                 </div>
                             </div>
                             <form action="" method="POST">
@@ -169,5 +169,11 @@
         $(".home").removeClass('active');
         $(".profile").addClass('active');
     </script>
+    <style>
+        .img:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);
+        }
+    </style>
 
     {% endblock %}

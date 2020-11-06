@@ -13,6 +13,15 @@ from product.models import *
 from django.core.mail import send_mail
 import uuid
 from order.models import *
+from django.http import JsonResponse
+
+
+def get_cart(request):
+    try:
+        cart_count = Cart.objects.filter(user_id=request.user.userprofile.id, is_active=True).count()
+    except:
+        cart_count = 0
+    return JsonResponse(cart_count) 
 
 
 class HomePage(TemplateView):
@@ -73,7 +82,7 @@ class RegisterPage(TemplateView):
         message = ''
         send_mail(subject, message, from_email, to, fail_silently=False, html_message=html_message)
 
-        return redirect('/thankyou/')
+        return render(request, 'authentication/thankyou.html')
 
 
 class VerifyEmail(UpdateView):
@@ -194,7 +203,17 @@ class WishlistPage(TemplateView):
     template_name = "authentication/wishlist.html"
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/')
+        wishlist = Wishlist.objects.filter(user=request.user.userprofile).order_by('-id')
+        context = {'wishlist': wishlist}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        if 'wishlist_remove' in request.POST:
+            wishlist = Wishlist.objects.filter(id=request.POST['wishlist'])
+            wishlist.delete()
+        return redirect('/wishlist/')
 
 
 class ContactView(TemplateView):
@@ -237,3 +256,16 @@ class AddToCart(CreateView):
         cart.save()
 
         return redirect('/cart/')
+
+
+class AddToWishlist(CreateView):
+    def post(self, request, *args, **kwargs):
+        product = Product.objects.get(id=request.POST['product'])
+
+        if Wishlist.objects.filter(product=product, user=request.user.userprofile).count() == 0:
+            wishlist= Wishlist()
+            wishlist.user = request.user.userprofile
+            wishlist.product = product
+            wishlist.save()
+
+        return redirect('/wishlist/')

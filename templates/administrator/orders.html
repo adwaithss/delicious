@@ -1,0 +1,168 @@
+{% extends "administrator/main.html" %}
+{% load static %}
+{% block title %}Admin | Delicious Rolls{% endblock %}
+{% block content %}
+
+<!-- Datatables -->
+<script src="{% static 'admin/js/plugin/datatables/datatables.min.js' %}"></script>
+
+<div class="content">
+	<div class="page-inner">
+<!-- Cards -->
+		<div class="row">
+			<div class="col-sm-6 col-md-3">
+				<div class="card card-stats card-primary card-round">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="flaticon-users"></i>
+								</div>
+							</div>
+							<div class="col-7 col-stats">
+								<div class="numbers">
+									<p class="card-category">Orders</p>
+									<h4 class="card-title">{{order.count}}</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="card card-stats card-info card-round">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="flaticon-interface-6"></i>
+								</div>
+							</div>
+							<div class="col-7 col-stats">
+								<div class="numbers">
+									<p class="card-category">Subscribers</p>
+									<h4 class="card-title">1303</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="card card-stats card-success card-round">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="flaticon-analytics"></i>
+								</div>
+							</div>
+							<div class="col-7 col-stats">
+								<div class="numbers">
+									<p class="card-category">Sales</p>
+									<h4 class="card-title">$ 1,345</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="card card-stats card-secondary card-round">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="flaticon-success"></i>
+								</div>
+							</div>
+							<div class="col-7 col-stats">
+								<div class="numbers">
+									<p class="card-category">Order</p>
+									<h4 class="card-title">576</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- Table -->
+		<div class="page-header">
+			<h4 class="page-title">Orders List</h4>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">Pending Orders</h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="multi-filter-select" class="display table table-striped table-hover" >
+								<thead>
+									<tr>
+										<th>Checkout ID</th>
+										<th>Customer</th>
+										<th>Total</th>
+										<th>Shipping charge</th>
+										<th  width="15%">Shipping address</th>
+										<th>Status</th>
+										<th>Created Date</th>
+										<th>Updated Date</th>
+									</tr>
+								</thead>
+								<tfoot>
+								<tbody>
+									{% for x in order %}
+										<tr>
+											<td>{{x.checkout}}</td>
+											<td>{{x.user}}</td>
+											<td>{{x.total}}</td>
+											<td>{{x.shipping_charge}}</td>
+											<td>{{x.shipping_address}}</td>
+											<td>
+												<form action="" method="POST">
+													{% csrf_token %}
+													<input type="hidden" value="{{x.checkout}}" name="checkout">
+													<select class="form-control select p-3 status" name="status">
+														<option value="{{x.status}}" selected disabled>{{x.status}}</option>
+														<option value="Order Placed">Order Placed</option>
+													    <option value="Order Shipped">Order Shipped</option>
+													    <option value="Order Delivered">Order Delivered</option>
+													</select>
+												</form>
+											</td>
+											<td>{{x.createdDate}}</td>
+											<td>{{x.updatedDate}}</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+	$(".dashboard").removeClass('active');
+	$(".orders").addClass('active');
+
+	$('.status').change(function() {
+		this.form.submit();
+	});
+
+</script>
+<style>
+	.select{cursor: pointer;}
+	.select:focus,.select:hover{outline: none;border: 1px solid #bbbbbb}
+	.select option{padding: 2rem;display: block;position: absolute;}
+</style>
+
+
+{% endblock %}
