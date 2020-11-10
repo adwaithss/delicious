@@ -41,7 +41,7 @@
 								<input type="hidden" name="product" value="{{x.id}}">
 								<div class="container-fluid"> <div class="d-flex align-items-center justify-content-center">
 									<p><input type="number" class="btn btn-primary p-3 p-md-2"name="quantity" min="1" max="{{x.quantity}}" placeholder="Quantity" required="" style="width: 6.5rem;"></p>
-									<p><button class="btn btn-white btn-outline-white p-3 p-md-2" name="add-cart">Add to Cart</button></p>
+									<p><button class="btn btn-white btn-outline-white p-3 p-md-2" name="add-cart" style="width: 6.5rem;">Add to Cart</button></p>
 								</div>
 							</div>
 						</form>
@@ -94,6 +94,7 @@
     input::placeholder{color: #000;}
     input:hover::placeholder{color: #F9C464;}
     input[type=number]::-webkit-inner-spin-button {-webkit-appearance: none;}
+    input[type=number] { -moz-appearance:textfield; }
     .btnpl:hover{transform: translateY(-5px);box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);}
 </style>
 <script src="{% static 'js/jquery.min.js' %}"></script>

@@ -16,4 +16,5 @@ urlpatterns = [
     path('wishlist/', WishlistPage.as_view(), name='wishlist'),
     path('add-cart/', AddToCart.as_view(), name='add-cart'),
     path('add-wishlist/', AddToWishlist.as_view(), name='add-wishlist'),
+    path('about/', AboutView.as_view(), name='about'),
 ]

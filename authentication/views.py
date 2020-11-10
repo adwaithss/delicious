@@ -224,6 +224,14 @@ class ContactView(TemplateView):
 		return render(request, self.template_name, context)
 
 
+class AboutView(TemplateView):
+    template_name = "common/about.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, self.template_name, context)
+
+
 class AddToCart(CreateView):
     def post(self, request, *args, **kwargs):
         user = request.user.id
