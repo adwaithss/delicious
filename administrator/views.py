@@ -33,7 +33,7 @@ class OrderManagement(TemplateView):
             return redirect('/')
         order = Order.objects.all().order_by('-id')
 
-        paginator = Paginator(order, 1)
+        paginator = Paginator(order, 6)
         page = request.GET.get('page')
 
         try:
@@ -53,4 +53,4 @@ class OrderManagement(TemplateView):
         order = Order.objects.get(checkout__txnid=request.POST['checkout'])
         order.status = request.POST['status']
         order.save()
-        return redirect('/administrator/ordermanagement')
+        return redirect('/administrator/ordermanagement/')

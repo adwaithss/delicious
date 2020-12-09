@@ -17,33 +17,36 @@ class CreateOrder(CreateView):
 
     def post(self, request, *args, **kwargs):
         checkout = CheckOut.objects.get(txnid=request.POST['checkout'])
-        order = Order()
-        order.checkout = checkout
-        order.user = request.user.userprofile
-        order.total = request.POST['total']
-        order.tax = request.POST['tax']
-        order.discount = request.POST['discount']
-        order.shipping_charge = 40
-        order.shipping_address = request.user.userprofile.address + "\n" + request.user.userprofile.district + "\n" + request.user.userprofile.state + "\n" + request.user.userprofile.country + "\n" + request.user.userprofile.pin
-        order.status = 'Order Placed'
-        order.save()
+        if Order.objects.filter(checkout=checkout, user=request.user.userprofile).count() == 0:
+            order = Order()
+            order.checkout = checkout
+            order.user = request.user.userprofile
+            order.total = request.POST['total']
+            order.tax = request.POST['tax']
+            order.discount = request.POST['discount']
+            order.shipping_charge = 40
+            order.shipping_address = request.user.userprofile.address + "\n" + request.user.userprofile.district + "\n" + request.user.userprofile.state + "\n" + request.user.userprofile.country + "\n" + request.user.userprofile.pin
+            order.status = 'Order Placed'
+            order.save()
 
-        CheckOut.objects.filter(txnid=request.POST['checkout']).update(is_active=False)
-        Cart.objects.filter(checkout=checkout).update(is_active=False)
+            CheckOut.objects.filter(txnid=request.POST['checkout']).update(is_active=False)
+            Cart.objects.filter(checkout=checkout).update(is_active=False)
 
-        for x in Cart.objects.filter(checkout=checkout).all():
-            product = Product.objects.get(id=x.product_id)
-            product.quantity = (product.quantity) - x.quantity
-            product.save()
+            for x in Cart.objects.filter(checkout=checkout).all():
+                product = Product.objects.get(id=x.product_id)
+                product.quantity = (product.quantity) - x.quantity
+                product.save()
 
-        user = request.user.userprofile
-        prd_cart = Cart.objects.filter(checkout=checkout, is_active=False)
-        subject, from_email, to = 'Order Confirmed', 'Delicious Rolls <testbyadwaith@gmail.com>', [user.user.email]
-        html_message = loader.render_to_string(str(settings.BASE_DIR) + '/templates/mail/ordermail.html', 
-            {'user': user, 'prd_cart': prd_cart, 'order': order})
-        message = ''
-        send_mail(subject, message, from_email, to, fail_silently=False, html_message=html_message)
-        return render(request, 'order/ordersuccess.html')
+            user = request.user.userprofile
+            prd_cart = Cart.objects.filter(checkout=checkout, is_active=False)
+            subject, from_email, to = 'Order Confirmed', 'Delicious Rolls <testbyadwaith@gmail.com>', [user.user.email]
+            html_message = loader.render_to_string(str(settings.BASE_DIR) + '/templates/mail/ordermail.html', 
+                {'user': user, 'prd_cart': prd_cart, 'order': order})
+            message = ''
+            send_mail(subject, message, from_email, to, fail_silently=False, html_message=html_message)
+            return render(request, 'order/ordersuccess.html')
+        else:
+            return redirect('/cart/')
 
 
 class OrdersPage(TemplateView):

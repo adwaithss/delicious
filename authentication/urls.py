@@ -17,4 +17,5 @@ urlpatterns = [
     path('add-cart/', AddToCart.as_view(), name='add-cart'),
     path('add-wishlist/', AddToWishlist.as_view(), name='add-wishlist'),
     path('about/', AboutView.as_view(), name='about'),
+    path('request/', RequestView.as_view(), name='request'),
 ]

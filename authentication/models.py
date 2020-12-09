@@ -32,4 +32,36 @@ class Banner(models.Model):
 		return self.name
 
 
+class Message(models.Model):
+	name = models.CharField(max_length=25)
+	email = models.CharField(max_length=50)
+	subject = models.CharField(max_length=50)
+	message = models.TextField()
+	createdDate = models.DateTimeField(auto_now_add=True)
+	updatedDate = models.DateTimeField(auto_now=True)
+
+
+	def __str__(self):
+		return self.name
+
+
+class Request(models.Model):
+	name = models.CharField(max_length=25)
+	email = models.CharField(max_length=50)
+	mobile = models.CharField(max_length=13) 
+	dish_name = models.CharField(max_length=50)
+	dish_category = models.CharField(max_length=50)
+	dish_sub_category = models.CharField(max_length=50)
+	dish_type = models.CharField(max_length=50)
+	othr_details = models.TextField()
+	createdDate = models.DateTimeField(auto_now_add=True)
+	updatedDate = models.DateTimeField(auto_now=True)
+
+
+	def __str__(self):
+		return self.name
+
+
+
+
 	

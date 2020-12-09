@@ -3,81 +3,91 @@
 {% load static %}
 {% block content %}
 
-	<section class="ftco-counter ftco-bg-dark img" id="section-counter" style="background-image: url({% static 'images/about.jpg' %});" data-stellar-background-ratio="0.5">
-      	<div class="overlay"></div>
-        <div class="container">
-          <div class="row  justify-content-center align-items-center">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 
-            <div class="col-md-7 col-sm-12 text-center ftco-animate">
-            	<h1 class="mb-3 mt-5 bread">Contact Us</h1>
-	            <p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Contact</span></p>
-            </div>
-
-          </div>
-        </div>
-	</section>
-<section class="ftco-section contact-section">
-      <div class="container mt-5">
-        <div class="row block-9">
-					<div class="col-md-4 contact-info ftco-animate">
-						<div class="row">
-							<div class="col-md-12 mb-4">
-	              <h2 class="h4">Contact Information</h2>
-	            </div>
-	            <div class="col-md-12 mb-3">
-	              <p><span>Address:</span>Kannur University Campus, Mangattuparamba, Kannur PO 670 567</p>
-	            </div>
-	            <div class="col-md-12 mb-3">
-	              <p><span>Phone:</span> <a href="tel://+91 8111 819 045">+91 8111 819 045</a></p>
-	            </div>
-	            <div class="col-md-12 mb-3">
-	              <p><span>Email:</span> <a href="mailto:info@yoursite.com">deliciousrolls@dlr.org</a></p>
-	            </div>
-	            <div class="col-md-12 mb-3">
-	              <p><span>Home:</span> <a href="/">Delicious Rolls</a></p>
-	            </div>
-						</div>
-					</div>
-					<div class="col-md-1"></div>
-          <div class="col-md-6 ftco-animate">
-            <form action="#" class="contact-form">
-            	<div class="row">
-            		<div class="col-md-6">
-	                <div class="form-group">
-	                  <input type="text" class="form-control" placeholder="Your Name">
-	                </div>
+<section class="ftco-section container text-align-center">
+    <div class="container-fluid text-center">
+        <div class="card card-2 d-inline-flex p-2">
+            <div class="card-body container-fluid  text-center">
+                <div class="row">
+                    <div class="col-md-5" style="padding: 0;">
+                        <img class="img-fluid" src="{% static '/images/Cooking.gif' %}" height="350px" style="max-height: 350px;">
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center d-inline-flex p-2" >
+                        <div class="row d-inline-flex p-2">
+                            <form method="POST" action="" class="contact-form" onsubmit="return xSubmit(this);">
+				            	{% csrf_token %}
+				            	<div class="form-group">
+				            		<input type="hidden" name="u_name" value="{{request.user.first_name|title}}">
+				            		<input type="hidden" name="u_email" value="{{request.user.email}}">
+				            	</div>
+				            	<div class="form-group">
+				            		<input type="text" class="form-control" placeholder="Name of Dish"  name="dish_name" required="">
+				            	</div>
+				            	<div class="row">
+				            		<div class="col-md-6">
+				            			<div class="form-group">
+				            				<input type="text" class="form-control" placeholder="Category" name="category">
+				            			</div>
+				            		</div>
+				            		<div class="col-md-6">
+				            			<div class="form-group">
+				            				<input type="text" class="form-control" placeholder="Sub Category" name="sub_category">
+				            			</div>
+				            		</div>
+				            	</div>
+				            	<div class="form-check">
+					            	<div class="row">
+					            		<div class="col-md-6">
+					            			<div class="form-group">
+					            				<input class="form-check-input" type="radio" name="food_type" id="nonveg" value="nonveg" checked="">
+					            				<label class="form-check-label" for="nonveg">Non Vegetarian</label>
+					            			</div>
+					            		</div>
+					            		<div class="col-md-6">
+					            			<div class="form-group">
+					            				<input class="form-check-input" type="radio" name="food_type" id="veg" value="veg">
+					            				<label class="form-check-label" for="nonveg">Vegetarian</label>
+					            			</div>
+					            		</div>
+					            	</div>
+					            </div>
+				            	<div class="form-group">
+				            		<input type="text" class="form-control" placeholder="Other Details" name="other"></textarea>
+				            	</div>
+				            	<div class="form-group">
+				            		<input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+				            	</div>
+				            </form>
+                    </div>
                 </div>
-                <div class="col-md-6">
-	                <div class="form-group">
-	                  <input type="text" class="form-control" placeholder="Your Email">
-	                </div>
-	                </div>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Subject">
-              </div>
-              <div class="form-group">
-                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-              </div>
-              <div class="form-group">
-                <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
-      </div>
-    </section>
-    <section class="ftco-intro">
-		<div class="container-wrap">
-			<div class="wrap d-md-flex">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1951.4391597635743!2d75.3638985205882!3d11.98292063517986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba43e4080f78657%3A0x36957c3d60743911!2sDepartment%20Of%20Information%20Technology!5e0!3m2!1sen!2sin!4v1579570528611!5m2!1sen!2sin" width="100%" height="450px" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-			</div>
-		</div>
-	</section>
-	<script src="{% static 'js/jquery.min.js' %}"></script>
-	<script>
-		$(".home").removeClass('active');
-		$(".contact").addClass('active');
-	</script>
+    </div>
+</section>
+<script type="text/javascript">
+	function xSubmit(frm) {
+		$.post($(frm).attr('action'),$(frm).serializeArray());
+		alert("The request has been submitted");
+		window.close();
+		return false;
+	}
+</script>
+<style type="text/css">
+    .ftco-section {padding: 2em 0;position: relative;}
+    .card-2 {box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.4)}
+    .card-2:hover {box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.6)}
+    .left_algn{text-align: left;}
+	select{cursor: pointer;}
+	select:focus,.select:hover{outline: none;border: 1px solid #bbbbbb}
+	select option{background-color: #121618; padding: 2rem;display: block;position: absolute;}
+	select option:focus{outline: none; border: none;}
+</style>
 
-    {% endblock %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+	$(".home").removeClass('active');
+	$(".profile").addClass('active');
+</script>
+
+{% endblock %}

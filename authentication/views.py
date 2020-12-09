@@ -217,11 +217,43 @@ class WishlistPage(TemplateView):
 
 
 class ContactView(TemplateView):
-	template_name = "common/contact.html"
+    template_name = "common/contact.html"
 
-	def get(self, request, *args, **kwargs):
-		context = {}
-		return render(request, self.template_name, context)
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        message = Message()
+        message.name = request.POST['name']
+        message.email = request.POST['email']
+        message.subject = request.POST['subject']
+        message.message = request.POST['message_content']
+        message.save()
+        return redirect('/')
+
+
+class RequestView(TemplateView):
+    template_name = "common/request.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        requst = Request()
+        requst.name = request.POST['u_name']
+        requst.email = request.POST['u_email']
+        user = UserProfile.objects.get(user=request.user.id)
+        requst.mobile = user.mobile
+        requst.dish_name = request.POST['dish_name']
+        requst.dish_category = request.POST['category']
+        requst.dish_sub_category = request.POST['sub_category']
+        requst.dish_type = request.POST['food_type']
+        requst.othr_details = request.POST['other']
+        requst.save()
+        return redirect('/')
+        
 
 
 class AboutView(TemplateView):

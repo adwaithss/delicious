@@ -4,12 +4,10 @@
 {% block content %}
 {% load mathfilters %}
 
-<!-- Datatables -->
 <script src="{% static 'admin/js/plugin/datatables/datatables.min.js' %}"></script>
 
 <div class="content">
 	<div class="page-inner">
-<!-- Cards -->
 		<div class="row">
 			<div class="col-sm-6 col-md-3">
 				<div class="card card-stats card-primary card-round">
@@ -88,15 +86,17 @@
 				</div>
 			</div>
 		</div>
-<!-- Table -->
 		<div class="page-header">
 			<h4 class="page-title">Orders List</h4>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card">
-					<div class="card-header">
-						<h4 class="card-title">Pending Orders</h4>
+					<div class="card-header ml-3">
+						<div class="row">
+							<h4 class="card-title">Pending Orders</h4>
+							<p class="ml-2 mt-1">Page <b>{{ order.number }}</b> - {{ order.paginator.num_pages }} of <b>{{ order.paginator.count }}</b> orders</p>
+						</div>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
@@ -125,7 +125,7 @@
 												<form action="" method="POST">
 													{% csrf_token %}
 													<input type="hidden" value="{{x.checkout}}" name="checkout">
-													<select class="form-control select p-3 status" name="status">
+													<select class="form-control select p-3 status" name="status" style="background-color: #202940">
 														<option value="{{x.status}}" selected disabled>{{x.status}}</option>
 														<option value="Order Placed">Order Placed</option>
 													    <option value="Order Shipped">Order Shipped</option>
@@ -140,52 +140,31 @@
 								</tbody>
 								<tfoot>
 									<div class="demo">
+										
 										<ul class="pagination pg-primary">
 											{% if order.has_previous %}
-												<li class="page-item">
-													<a class="page-link" href="?page={{ order.previous_page_number }}" aria-label="Previous">
-														<span aria-hidden="true">«</span>
-														<span class="sr-only">Previous</span>
-													</a>
-												</li>
-											{% else %}
-												<li class="page-item disabled">
-													<a class="page-link" href="#" aria-label="Previous">
-														<span aria-hidden="true">«</span>
-														<span class="sr-only">Previous</span>
-													</a>
-												</li>
-											{% endif %}
-
+					                            <li class="page-item"><a class="page-link" href="?page={{ order.previous_page_number }}">&lt; </a></li>
+					                        {% else %}
+					                            <li class="page-item disabled"><a class="page-link">&lt; </span></li>
+					                        {% endif %}
 											{% if order.number|add:'-5' > 5 %}
-							                    <li><a href="?page={{ order.number|add:'-5' }}">&hellip;</a></li>
+					                            <li class="page-item"><a class="page-link" href="?page={{ order.number|add:'-5' }}">&hellip;</a></li>
 					                        {% endif %}
 					                        {% for i in order.paginator.page_range %}
 					                            {% if order.number == i %}
-					                                <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+					                                <li class="active page-item"><a class="page-link">{{ i }}</a></li>
 					                            {% elif i > order.number|add:'-5' and i < order.number|add:'5' %}
-					                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{i}}</a></li>
+					                                <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
 					                            {% endif %}
 					                        {% endfor %}
 					                        {% if order.paginator.num_pages > order.number|add:'5' %}
-					                            <li><a href="?page={{ order.number|add:'5' }}">&hellip;</a></li>
+					                            <li><a class="page-link" href="?page={{ order.number|add:'5' }}">&hellip;</a></li>
 					                        {% endif %}
-											
 											{% if order.has_next %}
-												<li class="page-item">
-													<a class="page-link" href="?page={{ order.next_page_number }}" aria-label="Next">
-														<span aria-hidden="true">»</span>
-														<span class="sr-only">Next</span>
-													</a>
-												</li>
-											{% else %}
-												<li class="page-item disabled">
-													<a class="page-link" href="?page={{ order.next_page_number }}" aria-label="Next">
-														<span aria-hidden="true">»</span>
-														<span class="sr-only">Next</span>
-													</a>
-												</li>
-											{% endif %}
+					                            <li><a class="page-link" href="?page={{ order.next_page_number }}">&gt;</a></li>
+					                        {% else %}
+					                            <li class="page-item disabled"><a class="page-link">&gt;</a></li>
+					                        {% endif %}
 										</ul>
 									</div>
 								</tfoot>
@@ -197,8 +176,6 @@
 		</div>
 	</div>
 </div>
-
-
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
 	$(".dashboard").removeClass('active');
@@ -217,6 +194,5 @@
 	.table td, .table th {padding: .5rem 15px !important;}
 	thead{color: #EEEEEE;background-color: #151d33;border-radius: 10px !important;}
 </style>
-
 
 {% endblock %}
